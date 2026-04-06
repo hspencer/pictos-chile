@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        stroke: #1d1d1b;
+        stroke-miterlimit: 10;
+        stroke-width: 9px;
+      }
+
+      .cls-7, .cls-8 {
+        fill: #1d1d1b;
+      }
+
+      .cls-8 {
+        font-family: Lexend-Regular, Lexend;
+        font-size: 109px;
+        font-variation-settings: 'wght' 400;
+      }
+
+      .cls-2, .cls-9 {
+        fill: none;
+      }
+
+      .cls-3 {
+        fill: #9cd7ee;
+      }
+
+      .cls-4 {
+        fill: #b7e0f0;
+      }
+
+      .cls-5 {
+        fill: #eaf6fc;
+      }
+
+      .cls-6 {
+        fill: #d1ebf4;
+      }
+
+      .cls-9 {
+        stroke: #010101;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 4.58px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="345.33" cy="433.08" r="93.08"/>
+  <circle class="cls-3" cx="1288.46" cy="433.08" r="93.08"/>
+  <g>
+    <line class="cls-2" x1="438.4" y1="433.08" x2="1185.62" y2="433.08"/>
+    <polygon class="cls-7" points="1155.8 469.89 1149.66 463.29 1182.17 433.09 1149.66 402.87 1155.8 396.28 1195.38 433.09 1155.8 469.89"/>
+  </g>
+  <text class="cls-8" transform="translate(313.79 476.92)"><tspan x="0" y="0">T</tspan></text>
+  <text class="cls-8" transform="translate(1273.84 476.92)"><tspan x="0" y="0">i</tspan></text>
+  <circle class="cls-6" cx="803.56" cy="433.08" r="93.08"/>
+  <circle class="cls-5" cx="574.44" cy="433.08" r="93.08"/>
+  <circle class="cls-4" cx="1032.67" cy="433.08" r="93.08"/>
+  <g>
+    <circle class="cls-9" cx="568.53" cy="425.43" r="18.3"/>
+    <line class="cls-9" x1="591.41" y1="448.31" x2="581.46" y2="438.35"/>
+    <line class="cls-9" x1="568.53" y1="418.56" x2="568.53" y2="432.29"/>
+    <line class="cls-9" x1="561.67" y1="425.43" x2="575.4" y2="425.43"/>
+  </g>
+  <g>
+    <circle class="cls-9" cx="801.77" cy="425.43" r="18.3"/>
+    <line class="cls-9" x1="824.65" y1="448.31" x2="814.7" y2="438.35"/>
+    <line class="cls-9" x1="801.77" y1="418.56" x2="801.77" y2="432.29"/>
+    <line class="cls-9" x1="794.9" y1="425.43" x2="808.63" y2="425.43"/>
+  </g>
+  <g>
+    <circle class="cls-9" cx="1029.46" cy="425.43" r="18.3"/>
+    <line class="cls-9" x1="1052.33" y1="448.31" x2="1042.38" y2="438.35"/>
+    <line class="cls-9" x1="1029.46" y1="418.56" x2="1029.46" y2="432.29"/>
+    <line class="cls-9" x1="1022.59" y1="425.43" x2="1036.32" y2="425.43"/>
+  </g>
+</svg>

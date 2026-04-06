@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PICTOS: De la palabra a la imagen accesible</title>
+  <meta name="description" content="Sistema pictográfico generativo para accesibilidad cognitiva">
+  <meta name="author" content="Herbert Spencer González">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script type="module" crossorigin src="/p-i/assets/index-DDo5-5Rt.js"></script>
+  <link rel="stylesheet" crossorigin href="/p-i/assets/index-CxviNCAu.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================================================
+     PARTE 1 — EL PROBLEMA
+     ============================================================ -->
+
+<!-- 1.1 Título -->
+<section data-background-color="#460556" id="title-slide">
+  <div class="invert">
+    <div class="col-special">
+      <div class="title">
+        <h1>De la palabra<br><span>a la imagen accesible</span></h1>
+        <p class="small" style="margin-top: 2em; opacity: .7;">
+          Un sistema pictográfico generativo<br>para accesibilidad cognitiva
+        </p>
+      </div>
+      <div class="credentials">
+        <dl class="author">
+          <dt>Autor</dt>
+          <dd>Herbert Spencer González</dd>
+          <dd><span>PUCV · AUT University</span></dd>
+        </dl>
+      </div>
+    </div>
+    <img class="illustration" src="svg/title-illustration.svg" alt="">
+  </div>
+  <aside class="notes">
+    Presentación doctoral. Intersección diseño, lingüística cognitiva, IA generativa.
+  </aside>
+</section>
+
+<!-- 1.2 Una escena cotidiana -->
+<section>
+  <h2>Una escena cotidiana</h2>
+  <div class="col-2">
+    <div>
+      <div class="speech">porque hoy día llueve, no iremos al parque pero nos quedaremos trabajando con plastilina</div>
+      <p style="margin-top: 2em;">
+        Una fonoaudióloga necesita explicar esto a un niño autista. Abre su biblioteca de pictogramas.
+      </p>
+      <p class="fragment">
+        Encuentra "parque", "lluvia", "plasticina" por separado. Pero no puede componer
+        la <strong>negación temporal</strong> ni la <strong>relación causal</strong>.
+      </p>
+    </div>
+    <div class="fragment">
+      <div class="highlight-box">
+        <h4>El dato global</h4>
+        <p>Entre el <strong>6% y el 10%</strong> de la población mundial tiene necesidades complejas de comunicación.</p>
+        <p class="small">Esta escena se repite miles de veces al día en consultas, escuelas y hogares.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1.3 pictos.cl -->
+<section>
+  <h2>pictos.cl <span>veinte años de práctica</span></h2>
+  <p>
+    Durante más de veinte años, <a href="https://pictos.cl" target="_blank">pictos.cl</a>
+    ha desarrollado apoyos visuales y procedimentales para personas con discapacidad cognitiva:
+    gramática visual para pictogramas, lenguaje claro, herramientas CAA.
+  </p>
+  <div class="fragment highlight-box" style="margin-top: 1.5em;">
+    <p>
+      <strong>Lección central:</strong> la relación entre palabra e imagen no puede ser
+      arbitraria ni opaca; debe ser <em>estrecha, trazable y comprensible</em>.
+    </p>
+  </div>
+</section>
+
+<!-- 1.4 Pregunta de investigación -->
+<section data-background-color="#2a0335">
+  <div class="invert">
+    <h2 style="color: #c4cfb5;">La pregunta de investigación</h2>
+    <p class="huge" style="padding: 0;">
+      ¿Cómo diseñar herramientas generativas que hagan
+      <span>inspeccionable y controlable</span>
+      la construcción de pictogramas CAA?
+    </p>
+    <p class="fragment small" style="margin-top: 2em; opacity: .85;">
+      El problema no es generar imágenes a partir de texto. DALL-E y Midjourney ya hacen eso.
+      El problema es que operan como <strong>cajas negras</strong>.
+      El camino de la frase al pictograma debe ser <strong>transparente en cada paso</strong>.
+    </p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PARTE 2 — EL PROBLEMA DEL LENGUAJE VISUAL
+     ============================================================ -->
+
+<section data-background-color="#460556">
+  <div class="invert">
+    <h1 class="divider"><span>Parte 2</span><br>El problema del lenguaje visual</h1>
+  </div>
+</section>
+
+<!-- 2.1 Sueño de un lenguaje universal -->
+<section>
+  <h2>El sueño recurrente de un lenguaje universal</h2>
+  <div class="col-2">
+    <div>
+      <p class="fragment"><strong>Leibniz</strong> (1666): <em>Characteristica Universalis</em></p>
+      <p class="fragment"><strong>Frege</strong> (1879): <em>Begriffsschrift</em>, semántica composicional</p>
+      <p class="fragment"><strong>Neurath</strong> (s. XX): <em>ISOTYPE</em>, empirismo lógico visual</p>
+      <p class="fragment"><strong>Bliss</strong> (1949): <em>Blissymbolics</em>, adoptado por la comunidad CAA</p>
+    </div>
+    <div class="image">
+      <img src="svg/word-visual-space.svg" alt="Relación entre espacio de la palabra y espacio de la imagen" class="fit">
+    </div>
+  </div>
+  <div class="footnote">
+    Todos comparten la intuición de un nivel de representación visual anterior a cualquier lengua.
+    Ninguno logró la universalidad que prometía.
+  </div>
+</section>
+
+<!-- 2.2 Paradoja universal-local -->
+<section>
+  <h2>La paradoja universal–local</h2>
+  <blockquote>
+    El significado no reside en la correspondencia entre palabras y objetos,
+    sino en el uso dentro de formas de vida compartidas.
+    <cite>— Ludwig Wittgenstein</cite>
+  </blockquote>
+  <div class="fragment col-2" style="margin-top: 1.5em;">
+    <div class="card">
+      <h4>Universales perceptuales</h4>
+      <p>Efecto <strong>Bouba-Kiki</strong>: formas redondeadas → suave; angulosas → duro.</p>
+    </div>
+    <div class="card-orange">
+      <h4>Evidencia empírica (entrevistas)</h4>
+      <p>Los profesionales chilenos reemplazan pictogramas genéricos por <strong>fotografías personales</strong>:
+      la consola <em>del niño</em>, <em>su</em> barrio, <em>su</em> abuela.</p>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1em;">
+    La universalidad podría alcanzarse no en las imágenes sino en la <strong>gramática</strong>
+    que gobierna cómo se componen los conceptos visuales.
+  </p>
+</section>
+
+<!-- 2.3 Escalera de abstracción -->
+<section>
+  <h2>La escalera de la abstracción</h2>
+  <div class="col-2">
+    <div>
+      <p>Aprendemos anclados en lo concreto. Cada peldaño se conquista cuando la coordinación social lo requiere.</p>
+      <p class="fragment">
+        <strong>Codificación dual</strong> (Paivio): procesamos información verbal y visual por vías
+        parcialmente distintas pero interconectadas. Cuando un concepto tiene representación en ambos canales,
+        se recuerda y comprende mejor.
+      </p>
+      <p class="fragment">
+        Para usuarios de CAA, el canal visual no es complemento sino <strong>vía principal de acceso al significado</strong>.
+      </p>
+    </div>
+    <div class="image">
+      <img src="images/ladder-of-abstraction.png" alt="Escalera de la abstracción" class="fit">
+    </div>
+  </div>
+</section>
+
+<!-- 2.3b Codificación dual -->
+<section>
+  <div class="image">
+    <img src="svg/dual-coding-theory.svg" alt="Teoría de la codificación dual" class="fit">
+    <div class="legend">
+      <p>Un buen pictograma opera simultáneamente como representación icónica concreta,
+      esquema funcional y activador de un marco semántico completo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2.4 NSM -->
+<section>
+  <h2>Metalenguaje Semántico Natural <span>(NSM)</span></h2>
+  <p>Wierzbicka y Goddard: <strong>65 primitivos semánticos</strong> presentes en todas las lenguas humanas.</p>
+  <div class="fragment nsm-grid" style="margin-top: 1em;">
+    <span class="nsm-prim">YO</span><span class="nsm-prim">TÚ</span>
+    <span class="nsm-prim">ALGUIEN</span><span class="nsm-prim">ALGO</span>
+    <span class="nsm-prim">PERSONAS</span><span class="nsm-prim">CUERPO</span>
+    <span class="nsm-prim">BUENO</span><span class="nsm-prim">MALO</span>
+    <span class="nsm-prim">GRANDE</span><span class="nsm-prim">PEQUEÑO</span>
+    <span class="nsm-prim">PENSAR</span><span class="nsm-prim">SABER</span>
+    <span class="nsm-prim">QUERER</span><span class="nsm-prim">SENTIR</span>
+    <span class="nsm-prim">VER</span><span class="nsm-prim">OÍR</span>
+    <span class="nsm-prim">DECIR</span><span class="nsm-prim">HACER</span>
+    <span class="nsm-prim">NO</span><span class="nsm-prim">PORQUE</span>
+    <span class="nsm-prim">SI</span><span class="nsm-prim">AHORA</span>
+    <span class="nsm-prim">DESPUÉS</span><span class="nsm-prim">ANTES</span>
+    <span class="nsm-prim">DONDE</span><span class="nsm-prim">AQUÍ</span>
+    <span class="nsm-prim">ARRIBA</span><span class="nsm-prim">ABAJO</span>
+    <span class="nsm-prim">MUCHO</span><span class="nsm-prim">POCO</span>
+  </div>
+  <div class="fragment highlight-box" style="margin-top: 1em;">
+    Si podemos descomponer "por favor, haz tu cama" en primitivos como <strong>QUERER, HACER, COSA, TÚ</strong>
+    y relaciones como CAUSA y PARTE, entonces podemos construir la representación visual desde esos bloques.
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PARTE 3 — CÓMO ENTENDEMOS LOS PICTOGRAMAS
+     ============================================================ -->
+
+<section data-background-color="#460556">
+  <div class="invert">
+    <h1 class="divider"><span>Parte 3</span><br>Cómo entendemos los pictogramas</h1>
+  </div>
+</section>
+
+<!-- 3.1 Comprensión activa -->
+<section>
+  <h2>La comprensión no es decodificación pasiva</h2>
+  <p class="small">Hallazgo central de 10 entrevistas con profesionales CAA en Chile:</p>
+  <div class="col-3" style="margin-top: 1em;">
+    <div class="card fragment">
+      <h4>1. Percepción</h4>
+      <p>Componentes visuales discretos: formas, colores, disposiciones.</p>
+    </div>
+    <div class="card fragment">
+      <h4>2. Activación semántica</h4>
+      <p>Redes de asociaciones basadas en experiencia previa.</p>
+    </div>
+    <div class="card fragment">
+      <h4>3. Filtrado contextual</h4>
+      <p>El entorno desambigua: oso de peluche + cruz = "pediatra" en hospital.</p>
+    </div>
+  </div>
+  <div class="fragment card-orange" style="margin-top: 1em; max-width: 50em;">
+    <h4>4. Inferencia</h4>
+    <p>Síntesis de elementos, asociaciones y contexto → significado.</p>
+  </div>
+</section>
+
+<!-- 3.2 Actos de habla -->
+<section>
+  <h2>Actos de habla <span>decir es hacer</span></h2>
+  <p>Austin y Searle: el lenguaje no solo describe el mundo; <strong>actúa sobre él</strong>.</p>
+  <div class="fragment col-3" style="margin-top: 1em;">
+    <div class="card">
+      <h4>Etiqueta</h4>
+      <p>Referencial: "esto es agua"</p>
+    </div>
+    <div class="card-orange">
+      <h4>Petición</h4>
+      <p>Directiva: "quiero agua"</p>
+    </div>
+    <div class="card-sage">
+      <h4>Instrucción</h4>
+      <p>Procedimental: "lava con agua"</p>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1em;">
+    La primera pregunta no es "¿qué concepto?" sino <strong>"¿qué intención comunicativa?"</strong>
+  </p>
+  <div class="footnote">
+    Austin (1962) <em>How to Do Things with Words</em>; Searle (1969) <em>Speech Acts</em>.
+  </div>
+</section>
+
+<!-- 3.3 Semántica de marcos -->
+<section>
+  <h2>Semántica de marcos</h2>
+  <p>Fillmore y FrameNet: las palabras evocan <strong>marcos conceptuales completos</strong>.</p>
+  <div class="fragment highlight-box" style="margin-top: 1em;">
+    <p>"<strong>Comprar</strong>" evoca: comprador, vendedor, mercancía, precio, dinero, transacción.
+    No necesitamos mencionarlos todos.</p>
+  </div>
+  <p class="fragment" style="margin-top: 1em;">
+    Los <strong>roles semánticos</strong> (agente, paciente, instrumento, ubicación, meta)
+    determinan la composición visual: quién hace qué, con qué, dónde.
+  </p>
+</section>
+
+<!-- 3.4 Integración conceptual -->
+<section>
+  <h2>Integración conceptual</h2>
+  <div class="col-2">
+    <div>
+      <p>Fauconnier y Turner: la mente crea significados nuevos mediante <strong>mezcla de espacios mentales</strong>.</p>
+      <p class="fragment">Crear un pictograma combina:<br>
+        significado lingüístico + convenciones visuales + contexto de uso + experiencia del usuario.</p>
+    </div>
+    <div class="fragment card">
+      <h4>Hallazgo de entrevistas</h4>
+      <p>Los profesionales combinan registros visuales intuitivamente: simplifican, exageran, eliminan, añaden.
+      El desafío es hacer esto <strong>explícito, editable y reproducible</strong>.</p>
+    </div>
+  </div>
+  <div class="image fragment" style="margin-top: 1em;">
+    <img src="svg/blending.svg" alt="Integración conceptual" class="fit" style="max-height: 30vh;">
+  </div>
+</section>
+
+<!-- 3.5 Qué hace bueno a un pictograma -->
+<section>
+  <h2>¿Qué hace "bueno" a un pictograma?</h2>
+  <p class="small">Un buen pictograma se define por su <strong>éxito funcional</strong>, no por su estética.</p>
+  <table class="gap" style="margin-top: 1em; width: 100%;">
+    <thead>
+      <tr><th>Polo A</th><th></th><th>Polo B</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Claridad</td><td>↔</td><td>Riqueza cultural</td></tr>
+      <tr><td>Consistencia sistémica</td><td>↔</td><td>Personalización</td></tr>
+      <tr><td>Universalidad</td><td>↔</td><td>Especificidad contextual</td></tr>
+      <tr><td>Simplicidad</td><td>↔</td><td>Completitud informativa</td></tr>
+    </tbody>
+  </table>
+  <p class="fragment" style="margin-top: 1em;">
+    Estas tensiones deben ser <strong>visibles y ajustables</strong> en cada etapa de construcción.
+  </p>
+</section>
+
+
+<!-- ============================================================
+     PARTE 4 — LA BRECHA EN LA COMUNICACIÓN AUMENTATIVA
+     ============================================================ -->
+
+<section data-background-color="#460556">
+  <div class="invert">
+    <h1 class="divider"><span>Parte 4</span><br>La brecha en la comunicación aumentativa</h1>
+  </div>
+</section>
+
+<!-- 4.1 CAA hoy -->
+<section>
+  <h2>Comunicación Aumentativa y Alternativa hoy</h2>
+  <div class="col-3">
+    <div class="card fragment">
+      <h4>PECS</h4>
+      <p>Intercambio conductual de tarjetas. Estructura secuencial rígida.</p>
+      <img src="images/aac-pecs.png" alt="PECS" class="fit" style="max-height: 20vh; margin-top: 0.5em;">
+    </div>
+    <div class="card fragment">
+      <h4>Core Boards</h4>
+      <p>Vocabulario nuclear en disposiciones espaciales fijas.</p>
+      <img src="images/aac-core-board.png" alt="Core Board" class="fit" style="max-height: 20vh; margin-top: 0.5em;">
+    </div>
+    <div class="card fragment">
+      <h4>ARASAAC</h4>
+      <p>Repositorio abierto. Amplia cobertura, pero colección estática.</p>
+      <img src="images/aac-bliss.png" alt="Blissymbolics" class="fit" style="max-height: 20vh; margin-top: 0.5em;">
+    </div>
+  </div>
+</section>
+
+<!-- 4.2 La brecha -->
+<section>
+  <h2>La brecha</h2>
+  <div class="col-2">
+    <div class="card">
+      <h4>Ha avanzado</h4>
+      <p>Síntesis y reconocimiento de habla. Sistemas predictivos. Interfaces corporalizadas (gestos, mirada).</p>
+    </div>
+    <div class="card-terra">
+      <h4>No ha cambiado</h4>
+      <p>Bibliotecas estáticas. Cobertura limitada. Sin adaptación al contexto.
+      <strong>No existen sistemas pictográficos generativos dinámicos.</strong></p>
+    </div>
+  </div>
+  <div class="fragment highlight-box" style="margin-top: 1em;">
+    Los profesionales improvisan: recortan, combinan, fotografían, dibujan a mano.
+    Cada solución es <strong>local, no documentada, no reproducible y no compartible</strong>.
+  </div>
+</section>
+
+<!-- 4.3 IA como material -->
+<section>
+  <h2>La IA generativa como material de diseño</h2>
+  <div class="col-2">
+    <div>
+      <p>No como solución automática sino como <strong>material de diseño</strong>.</p>
+      <p class="fragment">Como un ceramista trabaja la arcilla: un material con propiedades y resistencias propias
+      que se puede manipular con precisión.</p>
+    </div>
+    <div class="fragment card-orange">
+      <h4>El problema de la opacidad</h4>
+      <p>DALL-E, Midjourney, Stable Diffusion: un solo paso opaco.
+      No hay manera de inspeccionar qué entendió el sistema.</p>
+      <p>La IA para pictogramas debe ser <strong>inspectable, corregible, controlable</strong>.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PARTE 5 — PICTOS.NET, EL PROTOTIPO
+     ============================================================ -->
+
+<section data-background-color="#460556">
+  <div class="invert">
+    <h1 class="divider"><span>Parte 5</span><br>PICTOS.net</h1>
+  </div>
+</section>
+
+<!-- 5.1 Visión general -->
+<section>
+  <h2>La comprensión precede a la visualización</h2>
+  <p><a href="https://pictos.net" target="_blank">PICTOS.net</a>: sistema de código abierto para la generación semántica de pictogramas.</p>
+  <div class="fragment pipeline-steps" style="margin-top: 1.5em;">
+    <div class="pipeline-step"><span class="step-num">1</span>COMPRENDER</div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step"><span class="step-num">2</span>COMPONER</div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step"><span class="step-num">3</span>PRODUCIR</div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step"><span class="step-num">4</span>VECTORIZAR</div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step"><span class="step-num">5</span>ESTRUCTURAR</div>
+  </div>
+  <p class="fragment small center">
+    Cada fase es independientemente visible, editable y regenerable.
+  </p>
+</section>
+
+<!-- 5.2 Fase 1: COMPRENDER -->
+<section>
+  <h2>Fase 1: COMPRENDER <span>NLU + NSM</span></h2>
+  <div class="col-2">
+    <div>
+      <p>Descompone el enunciado con NSM + semántica de marcos + actos de habla.</p>
+      <p class="fragment">El esquema <code>nlu-schema v2.0</code> produce: dominio, marcos semánticos con roles,
+      tipo de acto de habla, explicaciones NSM, forma lógica, análisis pragmático, guías visuales.</p>
+    </div>
+    <div class="fragment nlu" style="max-height: 55vh; overflow: auto;">
+      <pre><code class="language-json">{
+  "speech_act": "Explicación_y_Declaración",
+  "intent": "Explicar_cambio_de_plan",
+  "frames": [
+    {
+      "frame_name": "Causation",
+      "roles": {
+        "Cause": "hoy día llueve",
+        "Effect": "no iremos al parque"
+      }
+    },
+    {
+      "frame_name": "Activity_Cancellation",
+      "roles": {
+        "Activity": "Ir_al_parque",
+        "Agent": "YO_Y_OTROS"
+      }
+    },
+    {
+      "frame_name": "Performing_activity",
+      "roles": {
+        "Agent": "YO_Y_OTROS",
+        "Activity": "Trabajar_con_plastilina",
+        "Location": "AQUÍ_DENTRO"
+      }
+    }
+  ],
+  "visual_guidelines": {
+    "focus_actor": "YO_Y_OTROS",
+    "action_core": "NO_IR_A_LUGAR_EXTERIOR",
+    "object_core": "PLASTILINA",
+    "context": "LLUVIA_EXTERIOR_E_INTERIOR"
+  }
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- 5.2b NSM del ejemplo -->
+<section>
+  <h2>Explicaciones NSM del ejemplo</h2>
+  <p class="small"><em>"porque hoy día llueve, no iremos al parque pero nos quedaremos trabajando con plastilina"</em></p>
+  <div class="col-2" style="margin-top: 1em; font-size: 85%;">
+    <div>
+      <div class="card" style="margin-bottom: .8em;">
+        <h4>LLUEVE</h4>
+        <p>AGUA CAER DE ARRIBA. MUCHO AGUA CAER POR UN TIEMPO. CUANDO ESTO PASA, NO ES BUENO PARA GENTE ESTAR FUERA.</p>
+      </div>
+      <div class="card fragment" style="margin-bottom: .8em;">
+        <h4>PARQUE</h4>
+        <p>UN LUGAR. ESTE LUGAR ESTAR FUERA. GENTE IR A ESTE LUGAR PARA HACER COSAS BUENAS, COMO MOVERSE MUCHO.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card-orange" style="margin-bottom: .8em;">
+        <h4>TRABAJAR CON PLASTILINA</h4>
+        <p>YO Y OTROS HACER ALGO. ESTE ALGO ESTAR EN LAS MANOS. MOVER LAS MANOS PARA HACER FORMAS. HACER ESTO DENTRO.</p>
+      </div>
+      <div class="card-sage fragment">
+        <h4>NO IREMOS AL PARQUE</h4>
+        <p>YO Y OTROS QUERER NO HACER ESTO: MOVERSE A ESTE LUGAR. PORQUE ALGO NO BUENO PASAR (llueve).</p>
+      </div>
+    </div>
+  </div>
+  <div class="footnote">Primitivos según Wierzbicka &amp; Goddard (2014). Cada explicación usa solo los 65 primitivos universales.</div>
+</section>
+
+<!-- 5.3 Fase 2: COMPONER -->
+<section>
+  <h2>Fase 2: COMPONER <span>Topología visual</span></h2>
+  <div class="col-2">
+    <div>
+      <p>Traduce el análisis semántico en una <strong>jerarquía de elementos visuales</strong> con articulación espacial.</p>
+      <p class="fragment">Hace explícita una decisión invisible: qué es central, qué es periférico,
+      qué relaciones espaciales expresan relaciones semánticas.</p>
+    </div>
+    <div class="fragment nlu" style="max-height: 55vh; overflow: auto;">
+      <pre><code class="language-json">{
+  "id": "pictograma",
+  "children": [
+    {
+      "id": "zona_exterior_cancelada",
+      "children": [
+        { "id": "nube_lluvia",
+          "children": [{ "id": "gotas_lluvia" }] },
+        { "id": "parque_vacio",
+          "children": [
+            { "id": "arbol" },
+            { "id": "banco" }] },
+        { "id": "simbolo_no_entrada" }
+      ]
+    },
+    {
+      "id": "zona_interior_activa",
+      "children": [
+        { "id": "mesa_trabajo" },
+        { "id": "grupo_personas",
+          "children": [{ "id": "manos_moldeando" }] },
+        { "id": "plastilina_material" }
+      ]
+    }
+  ]
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- 5.4 Fase 3: PRODUCIR -->
+<section>
+  <h2>Fase 3: PRODUCIR <span>Bitmap</span></h2>
+  <div class="col-2">
+    <div>
+      <p>Combina contexto semántico, elementos visuales y estilo para generar un <strong>PNG de 1024×1024 px</strong>.</p>
+      <p class="fragment">El prompt describe la disposición de cada zona y las relaciones causa-efecto.</p>
+      <p class="fragment small">
+        Aquí es donde la mayoría de los sistemas terminan.
+        <strong>PICTOS.net considera la imagen como producto intermedio.</strong>
+      </p>
+    </div>
+    <div class="fragment image">
+      <!-- Aquí va la imagen del pictograma generado -->
+      <img src="images/ejemplo-pictograma-lluvia.jpg" alt="Pictograma: no iremos al parque, trabajaremos con plastilina" class="fit" style="max-height: 55vh; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);">
+      <p class="small center">Pictograma generado por PICTOS.net</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5.5 Fase 4: VECTORIZAR -->
+<section>
+  <h2>Fase 4: VECTORIZAR <span>SVG bruto</span></h2>
+  <p>Bitmap → SVG mediante <strong>vtracer</strong> (WebAssembly), ejecutado <em>localmente en el navegador</em>.</p>
+  <div class="fragment col-2" style="margin-top: 1.5em;">
+    <div class="card">
+      <h4>Proceso</h4>
+      <p>Clustering jerárquico de color + ajuste de splines → trazados vectoriales limpios.</p>
+    </div>
+    <div class="card-orange">
+      <h4>Resultado</h4>
+      <p>SVG que preserva la apariencia visual pero <strong>carece de estructura semántica</strong>: trazados puramente geométricos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5.6 Fase 5: ESTRUCTURAR -->
+<section>
+  <h2>Fase 5: ESTRUCTURAR <span>SVG semántico</span></h2>
+  <p>Reorganiza trazados en <strong>grupos semánticos con metadatos de accesibilidad</strong> (<code>mf-svg-schema</code>).</p>
+  <div class="fragment highlight-box" style="margin-top: 1em;">
+    <strong>Principio rector:</strong> la estructura del dibujo debe reflejar la estructura del pensamiento.
+  </div>
+  <div class="fragment col-3" style="margin-top: 1em; font-size: 85%;">
+    <div class="card"><h4>Lingüística</h4><p>Enunciado y análisis</p></div>
+    <div class="card"><h4>Conceptual</h4><p>Marcos y roles</p></div>
+    <div class="card"><h4>Estructural</h4><p>Jerarquía visual</p></div>
+  </div>
+  <div class="fragment col-2" style="margin-top: .5em; font-size: 85%; max-width: 42em;">
+    <div class="card-orange"><h4>Visual</h4><p>CSS y animaciones</p></div>
+    <div class="card-sage"><h4>Evaluativa</h4><p>Calidad y accesibilidad</p></div>
+  </div>
+  <div class="footnote">SVG autocontenido como Single Source of Truth (SSOT).</div>
+</section>
+
+<!-- 5.7 Pipeline interactivo (p5.js) -->
+<section>
+  <h2>Pipeline completo</h2>
+  <div class="p5-host" data-sketch="pipeline"></div>
+  <p class="small center">Cada fase es independientemente visible, editable y regenerable por el profesional.</p>
+</section>
+
+<!-- 5.8 Arquitectura técnica -->
+<section>
+  <h2>Arquitectura técnica</h2>
+  <div class="col-2" style="font-size: 85%;">
+    <table>
+      <tbody>
+        <tr><td><strong>Frontend</strong></td><td>React 19 + TypeScript 5.8</td></tr>
+        <tr><td><strong>Estado</strong></td><td>Zustand</td></tr>
+        <tr><td><strong>Almacenamiento</strong></td><td>IndexedDB (local)</td></tr>
+        <tr><td><strong>NLU + Imagen</strong></td><td>Gemini API (2.5 Flash / 3 Pro)</td></tr>
+        <tr><td><strong>Vectorización</strong></td><td>vtracer WASM (local)</td></tr>
+        <tr><td><strong>Auth</strong></td><td>Netlify Identity</td></tr>
+        <tr><td><strong>Idiomas</strong></td><td>Español (LA) + Inglés (UK)</td></tr>
+      </tbody>
+    </table>
+    <div>
+      <div class="card" style="margin-bottom: 1em;">
+        <h4>Código abierto</h4>
+        <p>Código: Apache 2.0<br>Pictogramas: CC-BY-4.0</p>
+        <p><a href="https://github.com/hspencer/pictos-net" target="_blank">github.com/hspencer/pictos-net</a></p>
+      </div>
+      <div class="card-sage">
+        <h4>Privacidad</h4>
+        <p>Datos sensibles se procesan localmente. Diseñado para respetar la privacidad de usuarios y personas representadas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PARTE 6 — EVALUACIÓN Y CALIDAD
+     ============================================================ -->
+
+<section data-background-color="#460556">
+  <div class="invert">
+    <h1 class="divider"><span>Parte 6</span><br>Evaluación y calidad</h1>
+  </div>
+</section>
+
+<!-- 6.1 ICAP -->
+<section>
+  <h2>ICAP <span>Index of Cognitive Accessibility of Pictograms</span></h2>
+  <p>¿Cómo sabemos si un pictograma generado es bueno?</p>
+  <div class="fragment col-3" style="margin-top: 1em; font-size: 85%;">
+    <div class="card"><h4>Precisión semántica</h4><p>¿Comunica exactamente lo que debe?</p></div>
+    <div class="card"><h4>Claridad visual</h4><p>¿Se identifica sin ambigüedad?</p></div>
+    <div class="card"><h4>Facilidad de aprendizaje</h4><p>¿Se recuerda tras primera exposición?</p></div>
+  </div>
+  <div class="fragment col-3" style="margin-top: .5em; font-size: 85%;">
+    <div class="card-orange"><h4>Dignidad</h4><p>¿Respeta a la persona?</p></div>
+    <div class="card-orange"><h4>Adaptabilidad cultural</h4><p>¿Funciona en el contexto del usuario?</p></div>
+    <div class="card-orange"><h4>Correspondencia semántico-visual</h4><p>¿Estructura visual = estructura del significado?</p></div>
+  </div>
+  <div class="footnote">ICAP integra ISO 22727 con medidas específicas del contexto CAA.</div>
+</section>
+
+<!-- 6.2 Evaluación → Entrenamiento -->
+<section>
+  <h2>De la evaluación al entrenamiento</h2>
+  <div class="pipeline-steps" style="font-size: 0.9em;">
+    <div class="pipeline-step">Generar</div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step">Evaluar (ICAP)</div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step">Corregir</div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step active">Par validado</div>
+  </div>
+  <p class="fragment" style="margin-top: 1.5em;">
+    Cada par <strong>"análisis semántico + pictograma validado"</strong> = dato de entrenamiento.
+  </p>
+  <div class="fragment highlight-box" style="margin-top: 1em;">
+    <p>Este corpus está etiquetado con información <strong>semántica, pragmática, contextual y evaluativa</strong>,
+    producida por profesionales expertos. Los JSON, SVG semánticos y evaluaciones ICAP constituyen un
+    <strong>corpus sin precedentes</strong> para entrenar un modelo especializado.</p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PARTE 7 — SOBERANÍA TECNOLÓGICA E INVITACIÓN
+     ============================================================ -->
+
+<section data-background-color="#460556">
+  <div class="invert">
+    <h1 class="divider"><span>Parte 7</span><br>Soberanía e invitación</h1>
+  </div>
+</section>
+
+<!-- 7.1 Dependencia -->
+<section>
+  <h2>El problema de la dependencia</h2>
+  <p>IA generativa concentrada en pocas corporaciones. Modelos entrenados sin nuestros contextos.</p>
+  <div class="fragment col-2" style="margin-top: 1em;">
+    <div class="card-orange">
+      <p>Si queremos pictogramas para un niño chileno, necesitamos que el sistema entienda el contexto chileno.
+      Para una persona mapuche, que respete ese marco cultural.</p>
+    </div>
+    <div class="card">
+      <p>La soberanía tecnológica no es un eslogan político: es una <strong>necesidad práctica</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7.2 MediaFranca -->
+<section>
+  <h2>El ecosistema MediaFranca</h2>
+  <p>IA para comunicación accesible como <strong>bien común</strong>: federado, abierto, comunitario.</p>
+  <div class="fragment col-3" style="margin-top: 1em;">
+    <div class="card">
+      <h4>PictoNet</h4>
+      <p>Motor de generación semántica. Pipeline de 5 fases.</p>
+    </div>
+    <div class="card-orange">
+      <h4>PictoForge</h4>
+      <p>Co-diseño. Correcciones alimentan el modelo (RLHF).</p>
+    </div>
+    <div class="card-sage">
+      <h4>MediaFranca</h4>
+      <p>Plataforma federada. Instancias locales entrenan y comparten.</p>
+    </div>
+  </div>
+  <p class="fragment small center" style="margin-top: 1em;">
+    Esquemas abiertos: <code>nlu-schema</code> · <code>mf-svg-schema</code> · <code>ICAP</code>
+  </p>
+  <div class="image fragment" style="margin-top: 1em;">
+    <img src="svg/rlhf.svg" alt="RLHF" class="fit" style="max-height: 25vh;">
+  </div>
+</section>
+
+<!-- 7.3 Invitación -->
+<section data-background-color="#2a0335">
+  <div class="invert">
+    <h2 style="color: #c4cfb5;">Invitación a participar</h2>
+    <p style="opacity: .9;">
+      PICTOS.net necesita <strong style="color: #ff6600;">usuarios reales</strong> para cumplir su propósito.
+    </p>
+    <div class="col-3" style="margin-top: 1.5em;">
+      <div class="card fragment" style="background: rgba(255,255,255,0.95); color: #141414;">
+        <h4>1. Usar la plataforma</h4>
+        <p>Entrar a <a href="https://pictos.net">pictos.net</a>, generar pictogramas reales.
+        Cada generación, corrección y evaluación contribuye al corpus.</p>
+      </div>
+      <div class="card-orange fragment" style="background: rgba(255,255,255,0.95); color: #141414;">
+        <h4>2. Contribuir bibliotecas</h4>
+        <p>Colecciones existentes en formatos estructurados. Enriquecer la diversidad del sistema.</p>
+      </div>
+      <div class="card-sage fragment" style="background: rgba(255,255,255,0.95); color: #141414;">
+        <h4>3. Retroalimentación</h4>
+        <p>Evaluaciones ICAP, reportes, observaciones de uso. Datos que ningún dataset automatizado provee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7.3b Corpus y disciplinas -->
+<section>
+  <h2>Cada disciplina contribuye</h2>
+  <div class="col-2" style="font-size: 90%;">
+    <div>
+      <p><strong>Diseñadores:</strong> composición visual, estilo, coherencia sistémica.</p>
+      <p><strong>Psicólogos cognitivos:</strong> procesamiento visual, carga cognitiva, evaluación ICAP.</p>
+    </div>
+    <div>
+      <p><strong>Fonoaudiólogos:</strong> uso clínico, casos reales, personalización contextual.</p>
+      <p><strong>Lingüistas:</strong> análisis semántico, NSM, marcos conceptuales.</p>
+    </div>
+  </div>
+  <div class="fragment highlight-box" style="margin-top: 1.5em;">
+    El output estructurado de PICTOS.net (JSON + SVG semántico + ICAP) es un <strong>corpus sin precedentes</strong>
+    para entrenar un modelo lenguaje-a-imagen especializado. Pero solo puede existir si una comunidad diversa lo alimenta.
+  </div>
+</section>
+
+<!-- 7.4 Cierre -->
+<section data-background-color="#460556">
+  <div class="invert center" style="padding-top: 15vh;">
+    <p class="huge" style="padding: 0 2em; font-size: 2rem; line-height: 140%;">
+      No se trata de reemplazar al profesional por una máquina,
+      sino de darle una herramienta que amplíe sus capacidades
+      <span>sin ocultar sus decisiones</span>.
+    </p>
+    <p style="margin-top: 2em; opacity: .7;">
+      La accesibilidad cognitiva es un derecho.<br>
+      Las herramientas que la habilitan deberían ser un bien público.
+    </p>
+    <div class="last" style="margin-top: 3em; font-size: .8rem; opacity: .5;">
+      <p>
+        <a href="https://pictos.net" target="_blank">pictos.net</a> ·
+        <a href="https://pictos.cl" target="_blank">pictos.cl</a> ·
+        <a href="https://github.com/hspencer/pictos-net" target="_blank">github</a>
+      </p>
+      <p>Herbert Spencer González · hspencer@ead.cl</p>
+    </div>
+  </div>
+</section>
+
+
+</div><!-- .slides -->
+</div><!-- .reveal -->
+
+<script src="./public/p5/sketches.js"></script>
+</body>
+</html>
