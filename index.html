@@ -521,8 +521,18 @@
         </section>
 
         <!-- 5.8 Demo PICTOS.net -->
-        <section id="s5-demo" data-background-iframe="https://pictos.net" data-background-interactive
-          data-background-opacity="1">
+        <section id="s5-demo" data-background-color="#FFF">
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <img src="svg/pictos-iso.svg" alt="PICTOS isotipo"
+              style="width: 220px; height: auto; margin-bottom: .5em;">
+            <p style="font-family: 'Lexend', sans-serif; font-size: 5rem; font-weight: 800; color: #40069e; margin: 0; letter-spacing: -0.03em;">
+              PICTOS.net
+            </p>
+            <a href="https://pictos.net" target="_blank"
+              style="font-family: 'Lexend', sans-serif; font-size: 1.2rem; color: #40069e; opacity: .6; margin-top: .5em; text-decoration: underline;">
+              abrir la herramienta →
+            </a>
+          </div>
           <aside class="notes">
             Demo en vivo. React 19 + TypeScript + Zustand + API Gemini
             + vtracer WASM. Funciona en el navegador.
@@ -554,75 +564,24 @@
           </aside>
         </section>
 
-        <!-- 6.2 ICAP -->
-        <section id="s6-icap">
-          <p class="smallcaps">ICAP — Index of Cognitive Accessibility of Pictograms</p>
-          <p class="huge">
-            Cada par <span>"análisis + pictograma validado"</span> es un dato de entrenamiento
-          </p>
-          <p class="small" style="margin-top: 2em; opacity: .8;">
-            6 dimensiones: precisión semántica · claridad visual · facilidad de aprendizaje ·
-            dignidad · adaptabilidad cultural · correspondencia semántico-visual
-          </p>
-          <div class="footnote">ICAP integra ISO 22727 con medidas específicas del contexto CAA.</div>
-        </section>
-
-        <!-- 6.3 Soberanía y modelo especializado -->
+        <!-- 6.2 Trabajo futuro -->
         <section id="s6-soberania">
-          <div class="col-2">
-            <div>
-              <p class="smallcaps">trabajo futuro</p>
-              <p class="huge" style="font-size: 1.4rem;">
-                Entrenar un <span>modelo especializado</span>
-                con los datos generados por el uso profesional del sistema
-              </p>
-              <p class="small" style="margin-top: 1.5em; opacity: .8;">
-                Soberanía tecnológica: que las comunidades que generan los datos
-                sean las que controlan el modelo resultante.
-              </p>
-            </div>
-            <div style="text-align: center;">
-              <object type="image/svg+xml" class="thumb" data="svg/rlhf.svg" style="max-width: 80%;"></object>
-            </div>
-          </div>
+          <p class="smallcaps">trabajo futuro</p>
+          <p class="huge">
+            Entrenar un modelo de razonamiento generativo
+            que sea auditable y personalizable
+          </p>
+          <p class="huge" style="margin-top: .8em;">
+            Una nueva forma de aprendizaje federado,
+            soberana y justa
+          </p>
           <aside class="notes">
-            Los datos generados (enunciados, análisis semánticos, composiciones validadas,
-            pictogramas aprobados) constituyen un dataset curado para fine-tuning.
-            Código abierto bajo MediaFranca.
-          </aside>
-        </section>
-
-        <!-- 6.4 Tres capas -->
-        <section id="s6-mediafranca">
-          <div class="col-2">
-            <table class="essence-mediafranca" border="0" cellpadding="8" cellspacing="0">
-              <thead>
-                <tr>
-                  <th><span>Capa</span></th>
-                  <th><span>Foco</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><em>PictoNet</em></td>
-                  <td>Motor semántico: pipeline de 5 fases, texto → SVG accesible.</td>
-                </tr>
-                <tr>
-                  <td><em>PictoForge</em></td>
-                  <td>Co-diseño: correcciones alimentan el modelo (RLHF).</td>
-                </tr>
-                <tr>
-                  <td><em>MediaFranca</em></td>
-                  <td>Plataforma federada: instancias locales entrenan y comparten.</td>
-                </tr>
-              </tbody>
-            </table>
-            <object type="image/svg+xml" class="thumb" data="svg/mediafranca-light.svg"></object>
-          </div>
-          <aside class="notes">
-            Tres capas: motor generativo, editor de co-diseño, plataforma federada.
+            Los datos generados por el uso profesional (enunciados, análisis semánticos,
+            composiciones validadas, pictogramas aprobados) constituyen un dataset curado
+            para fine-tuning. Aprendizaje federado: las instituciones entrenan localmente
+            y comparten mejoras sin ceder sus datos. Soberanía tecnológica: que las
+            comunidades que generan los datos controlen el modelo resultante.
             Código abierto bajo la iniciativa MediaFranca.
-            Las bibliotecas generadas pueden compartirse entre instituciones.
           </aside>
         </section>
 
