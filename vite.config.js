@@ -8,7 +8,7 @@ export default defineConfig({
       '@reveal': path.resolve(__dirname, 'node_modules/reveal.js/src/css')
     }
   },
-  base: '/p-i/',
+  base: '/pictos-chile/',
   build: {
     outDir: 'docs',
     emptyOutDir: true

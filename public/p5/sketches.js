@@ -1,6 +1,6 @@
 // ======================================================
 // p5.js "pipeline" — Visualización del pipeline de PICTOS.net
-// Adaptado de /cc para la presentación /p-i (castellano)
+// Adaptado de /cc para la presentación /pictos-chile (castellano)
 // Carga SVGs vía fetch→Blob→ObjectURL con fallback local
 // ======================================================
 
@@ -100,10 +100,10 @@ async function loadSVGAsHTMLImage(primaryUrl, fallbackUrl, label) {
 function pipelineFactory(parentEl) {
   return function (p) {
     // URLs para los SVG de enunciado y pictograma
-    const ABS_UTTER = 'https://herbertspencer.net/p-i/svg/utterance.svg';
-    const ABS_PICTO = 'https://herbertspencer.net/p-i/svg/pictogram-g.svg';
-    const LOC_UTTER = '/p-i/svg/utterance.svg';
-    const LOC_PICTO = '/p-i/svg/pictogram-g.svg';
+    const ABS_UTTER = 'https://herbertspencer.net/pictos-chile/svg/utterance.svg';
+    const ABS_PICTO = 'https://herbertspencer.net/pictos-chile/svg/pictogram-g.svg';
+    const LOC_UTTER = '/pictos-chile/svg/utterance.svg';
+    const LOC_PICTO = '/pictos-chile/svg/pictogram-g.svg';
 
     let columns = [];
     let svgUtter = null, svgPicto = null;

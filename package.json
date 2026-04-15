@@ -1,9 +1,9 @@
 {
-  "name": "p-i",
+  "name": "pictos-chile",
   "version": "1.0.0",
-  "description": "PICTOS: De la palabra a la imagen accesible — Presentación reveal.js en castellano",
+  "description": "PICTOS: De la intención comunicativa al pictograma accesible — Presentación reveal.js en castellano",
   "private": true,
-  "homepage": "https://hspencer.github.io/p-i/",
+  "homepage": "https://hspencer.github.io/pictos-chile/",
   "license": "CC-BY-4.0",
   "author": "Herbert Spencer <hspencer@ead.cl>",
   "type": "module",

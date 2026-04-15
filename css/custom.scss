@@ -1,5 +1,5 @@
 /**
- * Estilos para "De la palabra a la imagen accesible"
+ * Estilos para "De la intención comunicativa al pictograma accesible"
  * Derivados directamente de /cc (Confirmation of Candidature).
  * Paleta: púrpura (#460556), naranja (#ff6600), terracota (#c73319), verde salvia (#c4cfb5).
  * Tipografía: Lexend (sans) + EB Garamond (serif).
@@ -85,7 +85,7 @@ a, a:visited { color: $terciary-color; }
 
         /* --- Divisor de partes (tipo Tarantino, heredado de /cc) --- */
         h1.divider {
-            font-family: 'EB Garamond';
+            font-family: 'Lexend', sans-serif;
             line-height: 100%;
             text-align: center;
             color: white;
@@ -177,72 +177,88 @@ a, a:visited { color: $terciary-color; }
         }
 
         /* --- Title slide (heredado de /cc) --- */
-        #title-slide {
-            .illustration {
+        #s1-titulo {
+            .thought-bubble {
                 position: absolute;
-                width: 66%;
-                left: 33%;
-                top: -18%;
-                @include svg-shadow(3, 1px, 1px, 0, rgba(0, 0, 0, 0.039));
+                right: -5%;
+                top: -22%;
+                width: 75%;
+
+                .illustration {
+                    width: 100%;
+                    @include svg-shadow(3, 1px, 1px, 0, rgba(0, 0, 0, 0.039));
+                }
+
+                /* Puntos de pensamiento: trail desde el título hacia la ilustración */
+                .thought-dot {
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba($color-text, .08);
+                    border: 1px solid rgba($color-text, .06);
+                }
+                .dot-1 { width: 12px; height: 12px; bottom: -8%; left: 12%; }
+                .dot-2 { width: 20px; height: 20px; bottom: -2%; left: 18%; }
+                .dot-3 { width: 30px; height: 30px; bottom: 5%; left: 22%; }
             }
 
             .col-special {
-                margin: 30% 0 0 0;
+                margin: 38% 0 0 0;
+                grid-template-columns: 10fr 12fr;
+
                 .title {
                     margin: 0;
                     @include long-shadow(3, 1px, 1px, 0, rgba(0, 0, 0, 0.039));
                     h1 {
-                        font-size: $font-size-base * 1.15;
-                        line-height: $font-size-base * 1.8;
-                        letter-spacing: .1ex;
-                        font-weight: 350;
+                        font-size: $font-size-base * 1.4;
+                        line-height: 140%;
+                        letter-spacing: .02ex;
+                        font-weight: 400;
                         color: $color-text;
 
                         /* "PICTOS.net" en rojo, tamaño x2.5 */
                         span.app-name {
                             display: block;
                             font-weight: 700;
-                            font-size: 2.5em;
+                            font-size: 2.2em;
                             line-height: 110%;
                             color: $terciary-color;
                             letter-spacing: -.02ex;
                             margin-bottom: .15em;
                         }
                     }
+
+                    .author {
+                        margin: 1em 0 0 0;
+                        font-size: 75%;
+                    }
                 }
 
                 .credentials {
-                    display: grid;
-                    font-size: 75%;
-                    line-height: 160%;
-                    grid-template-columns: 1fr;
-                    margin: 7em 0 0 0;
-                    dt {
-                        font-size: .6rem;
-                        color: $terciary-color;
-                        text-transform: uppercase;
-                        font-weight: 600;
-                        margin: 2em 0 0 0;
-                    }
-                    dl {
-                        margin: 0 0 0 2em;
-                        span {
-                            position: relative;
-                            font-size: 70%;
-                            top: -1ex;
-                            text-transform: uppercase;
-                        }
+                    align-self: end;
+                    .logos {
+                        display: flex;
+                        gap: 1.5em;
+                        align-items: center;
+                        justify-content: flex-end;
+                        img { height: 50px; }
                     }
                 }
             }
 
             .footer {
                 display: flex;
-                align-items: center;
-                justify-content: space-between;
-                height: 100%;
+                align-items: baseline;
+                gap: .5em;
                 font-size: .7rem;
                 padding: 3rem 3rem 3rem 0;
+
+                .footer-label {
+                    text-transform: uppercase;
+                    font-size: .55rem;
+                    letter-spacing: .15ex;
+                    color: #999;
+                    font-weight: 400;
+                }
             }
         }
 
@@ -548,9 +564,9 @@ a, a:visited { color: $terciary-color; }
         }
 
         p.huge {
-            line-height: 130%;
-            font-size: 1.6rem;
-            padding: 0 3ex 0 1em;
+            line-height: 170%;
+            font-size: 2.2rem;
+            padding: 0 2ex 0 .5em;
             color: rgb(2, 32, 44);
             span {
                 transform-origin: center;
@@ -619,3 +635,20 @@ a, a:visited { color: $terciary-color; }
 .zoom166 { zoom: 1.66; }
 
 iframe { border: 0 !important; }
+
+/* === Zoom para iframe de pictogramas.pictos.cl === */
+.reveal .slide-background-content iframe[src*="pictogramas.pictos.cl"] {
+    transform: scale(1.4);
+    transform-origin: center top;
+}
+
+/* === SVG-code sync (diapo estética de la accesibilidad) === */
+.code-node.is-selected {
+    background: rgba(254, 94, 1, 0.195);
+    outline: 1px solid $terciary-color;
+    border-radius: .6ex;
+}
+
+svg .is-selected {
+    filter: drop-shadow(0 0 2px $terciary-color);
+}
