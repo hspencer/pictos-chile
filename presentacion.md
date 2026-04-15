@@ -23,16 +23,16 @@ PUCV / AUT University
 
 2. **Arquitectura del servicio** (30 s): Gramática visual compartida con léxicos locales adaptados al contexto cultural.
 
-3. **Definición de pictograma** (1 min): Un pictograma es un signo visual composicionalmente estructurado que codifica significado mediante formas gráficas reducidas pero reconocibles, funcionando como una frase visual capaz de expresar significado situacional o relacional. No es un ícono: es una herramienta para actuar en el mundo.[^4]
+3. **Correspondencia semántica** (1 min): La accesibilidad cognitiva se juega en la distancia entre lo que se quiere decir y lo que se muestra. Mientras más estrecha esa correspondencia, más accesible es el pictograma.
 
-4. **Correspondencia semántica** (1 min): La accesibilidad cognitiva se juega en la distancia entre lo que se quiere decir y lo que se muestra. Mientras más estrecha esa correspondencia, más accesible es el pictograma.
-
-5. **Sistema pictográfico en capas** (1 min): pictogramas.pictos.cl organiza la representación en capas composicionales: fondo contextual, elementos principales, modificadores y marcadores gramaticales. Gramática compartida (negación, pluralidad, temporalidad) con contenidos concretos adaptados culturalmente.
+4. **Sistema pictográfico en capas** (1 min): pictogramas.pictos.cl organiza la representación en capas composicionales: fondo contextual, elementos principales, modificadores y marcadores gramaticales. Gramática compartida (negación, pluralidad, temporalidad) con contenidos concretos adaptados culturalmente.
 
 
-## Sección 3: La pregunta generativa (1 min)
+## Sección 3: La pregunta generativa (2 min)
 
-1. **Pregunta de investigación**: ¿Cómo diseñar herramientas generativas que hagan auditable y controlable la construcción de pictogramas CAA? El problema no es generar imágenes a partir de texto; DALL-E y Midjourney ya lo hacen. El problema es que operan como cajas negras: el profesional no puede intervenir.[^5]
+1. **Definición de pictograma** (1 min): Un pictograma es un signo visual composicionalmente estructurado que codifica significado mediante formas gráficas reducidas pero reconocibles, funcionando como una frase visual capaz de expresar significado situacional o relacional. No es un ícono: es una herramienta para actuar en el mundo.[^4]
+
+2. **Pregunta de investigación** (1 min): ¿Cómo diseñar herramientas generativas que hagan auditable y controlable la construcción de pictogramas CAA? El problema no es generar imágenes a partir de texto; DALL-E y Midjourney ya lo hacen. El problema es que operan como cajas negras: el profesional no puede intervenir.[^5]
 
 
 ## Sección 4: Desafíos (3 min)
@@ -88,8 +88,8 @@ gantt
     axisFormat %M:%S
     section Secciones
     Trayectoria y contexto        :a1, 00:00, 4m
-    pictos.cl y palabra-imagen     :a2, after a1, 4m
-    Pregunta generativa            :a3, after a2, 1m
+    pictos.cl y palabra-imagen     :a2, after a1, 3m
+    Pregunta generativa            :a3, after a2, 2m
     Desafíos                       :a4, after a3, 3m
     PICTOS.net                     :a5, after a4, 6m
     Invitación y futuro            :a6, after a5, 2m
