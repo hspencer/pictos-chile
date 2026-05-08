@@ -41,6 +41,7 @@
               <div class="logos" style="gap: 2em;">
                 <img src="images/pucv-logo.png" alt="PUCV" style="height: 65px;">
                 <img src="images/AUT.jpg" alt="AUT University" style="height: 65px;">
+                <img src="images/micare-logo.jpg" alt="MICARE — Instituto Milenio para la Investigación del Cuidado" style="height: 65px;">
                 <img src="svg/mediafranca-light.svg" alt="MediaFranca" style="height: 65px;">
               </div>
             </div>
@@ -427,39 +428,52 @@
 
         <!-- 5.4 NLU front-end -->
         <section id="s5-nlu">
-          <h3>Análisis semántico <span>— fase COMPRENDER</span></h3>
+          <h3>Análisis semántico — fase COMPRENDER</h3>
           <div class="col-2">
             <div class="say">
-              <div class="speech" style="font-size: .85rem;">porque hoy día llueve, no iremos al parque pero nos
-                quedaremos trabajando con plastilina</div>
+              <div class="speech" style="font-size: .85rem;">porque hoy día llueve, no iremos al parque y nos
+                quedaremos trabajando con plastilina en la sala</div>
             </div>
-            <pre class="nlu"><code data-trim class="language-json">
-<span class="b">{</span>
-<span class="k">"speech_act"</span><span class="p">:</span> <span class="s">"Explicación_y_Declaración"</span><span class="p">,</span>
-<span class="k">"intent"</span><span class="p">:</span> <span class="s">"Explicar_cambio_de_plan"</span><span class="p">,</span>
-<span class="k">"frames"</span><span class="p">:</span> <span class="b">[</span>
-  <span class="b">{</span>
-    <span class="k">"frame_name"</span><span class="p">:</span> <span class="s">"Causation"</span><span class="p">,</span>
-    <span class="k">"roles"</span><span class="p">:</span> <span class="b">{</span>
-      <span class="k">"Cause"</span><span class="p">:</span> <span class="s">"hoy día llueve"</span><span class="p">,</span>
-      <span class="k">"Effect"</span><span class="p">:</span> <span class="s">"no iremos al parque"</span>
-    <span class="b">}</span>
-  <span class="b">}</span><span class="p">,</span>
-  <span class="b">{</span>
-    <span class="k">"frame_name"</span><span class="p">:</span> <span class="s">"Performing_activity"</span><span class="p">,</span>
-    <span class="k">"roles"</span><span class="p">:</span> <span class="b">{</span>
-      <span class="k">"Agent"</span><span class="p">:</span> <span class="s">"YO_Y_OTROS"</span><span class="p">,</span>
-      <span class="k">"Activity"</span><span class="p">:</span> <span class="s">"Trabajar_con_plastilina"</span>
-    <span class="b">}</span>
-  <span class="b">}</span>
-<span class="b">]</span><span class="p">,</span>
-<span class="k">"visual_guidelines"</span><span class="p">:</span> <span class="b">{</span>
-  <span class="k">"focus_actor"</span><span class="p">:</span> <span class="s">"YO_Y_OTROS"</span><span class="p">,</span>
-  <span class="k">"action_core"</span><span class="p">:</span> <span class="s">"NO_IR_A_LUGAR"</span><span class="p">,</span>
-  <span class="k">"context"</span><span class="p">:</span> <span class="s">"LLUVIA_EXTERIOR"</span>
-<span class="b">}</span>
-<span class="b">}</span></code>
-      </pre>
+            <pre class="nlu" style="font-size: .55rem; text-align: left; line-height: 1.45;"><code data-trim data-noescape class="language-json">{
+  "utterance": "porque hoy día llueve, no iremos al parque...",
+  "speech_act": "Explicación de Decisión y Planificación",
+  "intent": "Informar sobre un cambio de planes...",
+  "frames": [
+    { "frame": "Cause_to_effect_relation",
+      "lexical_unit": "porque",
+      "Cause":  { "ref": "EVENTO_LLUVIA_HOY",
+                  "surface": "hoy día llueve" },
+      "Effect": { "ref": "EFECTO_CAMBIO_DE_PLAN",
+                  "surface": "no iremos al parque..." }
+    },
+    { "frame": "Self_motion",
+      "lexical_unit": "iremos",
+      "Destination": { "ref": "LUGAR_PARQUE" },
+      "Negation":    { "ref": "MODALIDAD_NEGACION" }
+    },
+    { "frame": "Performing_actions",
+      "lexical_unit": "trabajando",
+      "Agent":      { "ref": "ACTOR_NOSOTROS" },
+      "Action":     { "surface": "trabajando con plastilina" },
+      "Location":   { "ref": "LUGAR_SALA" }
+    }
+  ],
+  "nsm_explications": {
+    "LLUVIA_HOY": "Pienso: hoy algo como agua cae de arriba.",
+    "CAMBIO_DE_PLANES": "Pienso: antes nosotros queríamos
+      movernos al parque. Ahora no haremos esto.",
+    "ACTIVIDAD_ALTERNATIVA": "Pienso: nosotros estaremos
+      en la sala. Haremos algo con plastilina."
+  },
+  "visual_guidelines": {
+    "focus_actor":  "Un grupo de personas (nosotros)",
+    "action_core":  "Cancelar salida, sustituir por
+                     actividad hogareña",
+    "object_core":  "Plastilina, parque",
+    "context":      "Día lluvioso, dentro de la sala",
+    "temporal":     "Hoy"
+  }
+}</code></pre>
           </div>
           <aside class="notes">
             El profesional puede verificar si la intención fue correctamente
@@ -503,7 +517,7 @@
           <div style="display:grid;grid-template-columns:50% 50%;height:500px;gap:1rem;">
             <!-- IZQUIERDA: código -->
             <div style="overflow:auto;font-size:.55em;line-height:1.2;">
-              <pre style="font-size:85%;white-space:pre;margin-left:2em;">
+              <pre style="font-size:111%;white-space:pre;margin-left:3em;">
         <code data-role="svg-source" class="language-xml" data-line-numbers></code>
         </pre>
             </div>
@@ -618,7 +632,7 @@
                 <li><a href="https://github.com/mediafranca/nlu-schema"><strong>nlu-schema</strong></a> — esquema NLU
                 </li>
                 <li><a href="https://github.com/mediafranca/manifesto"><strong>manifiesto</strong></a> — principios de
-                  diseño · <a href="https://herbertspencer.net/manifiesto">es</a></li>
+                  diseño · <a href="https://herbertspencer.net/2025/manifiesto">es</a></li>
               </ol>
               <p><strong>Herbert Spencer González</strong> · hspencer@ead.cl</p>
               <p><a href="https://herbertspencer.net/pictos-chile">herbertspencer.net/pictos-chile</a></p>
