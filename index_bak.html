@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PICTOS.net: De la intención comunicativa al pictograma accesible</title>
+  <meta name="description" content="PICTOS: sistema pictográfico generativo para accesibilidad cognitiva.">
+  <meta name="author" content="Herbert Spencer González">
+  <meta name="DC.title" content="De la intención comunicativa al pictograma accesible">
+  <meta name="DC.creator" content="Herbert Spencer González">
+  <meta name="DC.identifier" content="https://herbertspencer.net/pictos-chile">
+  <meta name="DC.rights" content="CC BY 4.0">
+  <meta name="DC.language" content="es-CL">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/2.0.4/p5.min.js" defer></script>
+  <script defer src="/p5/sketches.js"></script>
+  <script defer src="/svg-sync.js"></script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- =========================================================
+           SECCIÓN 1 — QUIÉNES ESTÁN EN ESTA SALA
+           Estructura: cada slide principal es su propio <section>
+           horizontal. Los drilldowns son <section> verticales bajo
+           el principal correspondiente. Reveal soporta 2 niveles
+           (horizontal → vertical), nunca 3.
+           ========================================================= -->
+
+      <!-- 1.1 Título -->
+      <section data-background-color="#FFF" data-transition="concave" id="s1-titulo">
+        <div class="thought-bubble">
+          <object type="image/svg+xml" data="svg/title-illustration.svg" class="illustration"
+            alt="Ilustración PICTOS"></object>
+        </div>
+        <div class="col-special">
+          <div class="title">
+            <h1><span class="app-name">PICTOS.net</span>De la intención comunicativa al pictograma accesible</h1>
+            <dl class="author"><strong>Herbert Spencer González</strong></dl>
+          </div>
+          <div class="credentials" style="align-self: end;">
+            <div class="logos" style="gap: 2em;">
+              <img src="images/pucv-logo.png" alt="PUCV" style="height: 65px;">
+              <img src="images/AUT.jpg" alt="AUT University" style="height: 65px;">
+              <img src="images/micare-logo.jpg" alt="MICARE — Instituto Milenio para la Investigación del Cuidado" style="height: 65px;">
+              <img src="svg/mediafranca-light.svg" alt="MediaFranca" style="height: 65px;">
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <span class="footer-label">esta presentación vive en</span>
+          <a href="https://herbertspencer.net/pictos-chile">herbertspencer.net/pictos-chile</a>
+        </div>
+        <aside class="notes">
+          Bienvenida. Esta charla está dirigida a fonoaudiólogas, educadoras
+          diferenciales y profesionales que trabajan con personas autistas
+          con un enfoque de derechos. En esta presentación les contaré qué
+          es PICTOS y por qué quiero invitarles a participar de la siguiente
+          fase de la investigación.
+        </aside>
+      </section>
+
+      <!-- 1.2 Enfoque de derechos: Ley 21.545 -->
+      <section id="s1-derechos">
+        <p class="smallcaps">enfoque de derechos · Ley 21.545 (2023)</p>
+        <p class="huge">
+          La ley contiene <span>dos visiones contrapuestas</span>
+          sobre el espectro autista
+        </p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; margin: 1em; gap: 2em;">
+          <div>
+              <p>Por un lado, una <strong>perspectiva clínica</strong> que entiende el autismo como condición a tratar,
+              centrada en detección e intervención temprana.</p>
+              <p>Por otro, una <strong>perspectiva de neurodiversidad</strong> que promueve la aceptación,
+              la igualdad de derechos y una sociedad más inclusiva.</p>
+            </div>
+            <div>
+              <p>
+              Para quienes trabajan en CAA, esta tensión tiene consecuencias concretas:
+              los apoyos visuales deben respetar la identidad, la edad
+              y el contexto cultural de la persona, no infantilizarla.</p>
+              <p><strong>Pero para que un sistema de comunicación e inclusión funcione debe conectarnos a todos, funcionar con todos.</strong></p>
+            </div>
+        </div>
+        <aside class="notes">
+          La ley convive con dos encuadres: uno médico-rehabilitador
+          (detección, diagnóstico, intervención temprana) y otro de derechos
+          (neurodiversidad, inclusión, participación plena).
+          Para fonoaudiólogos esto no es abstracto: implica que los materiales
+          comunicativos deben ser dignos, apropiados a la edad y culturalmente situados.
+          Zañartu y Chávez Castillo (2025) analizan estas contradicciones.
+        </aside>
+      </section>
+
+      <!-- 1.3 Quién habla — animación cronológica
+           [drilldown vertical: trayectoria PUCV/núcleo inclusión] -->
+      <section>
+        <section id="s1-quien-habla" class="w">
+          <div class="p5-host" data-sketch="chronology"></div>
+          <aside class="notes">
+            Animación cronológica 1990-2030 (sketch importado desde /prs).
+            La curva exponencial y los hitos tecnológicos sitúan la trayectoria
+            sin texto. Trabajo el problema de la accesibilidad cognitiva desde
+            antes de que la IA generativa fuera viable.
+          </aside>
+        </section>
+        <section id="s1-trayectoria-inclusiva" data-background-image="images/nucleo.jpg" data-background-size="cover"
+          data-background-position="center top" data-background-color="#FFF">
+          <p
+            style="position: fixed; bottom: .6em; left: 0; right: 0; text-align: center; font-size: .85rem; color: #333; margin: 0; pointer-events: auto;">
+            Núcleo de Investigación en Accesibilidad e Inclusión, PUCV
+            · <a href="https://accesibilidad-inclusion.cl" style="color: #333;">accesibilidad-inclusion.cl</a>
+          </p>
+          <aside class="notes">
+            Drilldown opcional. Más de veinte años trabajando con personas
+            con discapacidad intelectual en la Escuela de Arquitectura y Diseño
+            de la PUCV. Diseño participativo. La pregunta constante:
+            ¿cómo hacemos que la información sea comprensible para todos?
+          </aside>
+        </section>
+      </section>
+
+
+      <!-- =========================================================
+           SECCIÓN 2 — LO QUE SABEMOS DE SU PRÁCTICA
+           ========================================================= -->
+
+      <!-- 2.1 Tres temas del estudio formativo
+           El velo oscuro va dentro del data-background como linear-gradient
+           sobre la imagen, para que reveal lo extienda a toda la pantalla. -->
+      <section id="s2-tres-temas"
+        data-background="linear-gradient(rgba(17,16,19,0.72), rgba(17,16,19,0.72)), url('images/aac-systems.png') center/cover no-repeat">
+        <p class="smallcaps invert">lo que escuché en la fase formativa</p>
+        <ol class="big-list invert">
+          <li>
+            <span class="lead">Adaptación artesanal y diseño situado</span>
+            <span class="desc">El trabajo invisible de recortar, recomponer y dibujar a mano lo que falta.
+              <em>Paso más tiempo adaptando que trabajando con la persona.</em></span>
+          </li>
+          <li>
+            <span class="lead">La crisis de la generalización</span>
+            <span class="desc">El vocabulario exacto casi nunca está. Las bibliotecas generales son
+              materia prima, no solución terminada.</span>
+          </li>
+          <li>
+            <span class="lead">Paradojas transaccionales y autodeterminación</span>
+            <span class="desc">Tensión entre el pictograma como herramienta clínica y como derecho
+              expresivo del usuario. Riesgo de infantilización.</span>
+          </li>
+        </ol>
+        <aside class="notes">
+          Tres de los cinco temas construidos a partir de las entrevistas con
+          ocho profesionales (D1, T1–T8) en la fase formativa. Los nombro como
+          reconocimiento, no como diagnóstico externo. La cita anonimizada
+          (paso más tiempo adaptando…) viene del corpus.
+        </aside>
+      </section>
+
+      <!-- 2.2 Peluquería: dos lenguajes visuales
+           [drilldowns verticales: pictos.cl, arquitectura, correspondencia, capas] -->
+      <section>
+        <section id="s2-peluqueria" data-background-color="#FFF">
+          <div style="text-align: center;">
+            <img src="images/peluqueria.png"
+              alt="Comparación: pictograma ARASAAC vs. pictograma AIGA/DOT para peluquería" class="fit"
+              style="max-height: 65vh;">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; margin: 1em 2em; gap: 2em;">
+            <p>
+              <strong>Pictograma ARASAAC</strong> <em>Peluquería</em> (Sergio Palao / Gobierno de Aragón, CC BY-NC-SA
+              4.0).
+              Utiliza una escena narrativa con detalle contextual y una figura infantil.
+            </p>
+            <p>
+              <strong>Pictograma de información pública AIGA/DOT</strong> <em>Hairdresser Services</em> (AIGA,
+              1974/2017, dominio público).
+              Reduce el concepto a los objetos esenciales y una forma adulta neutra.
+            </p>
+          </div>
+          <aside class="notes">
+            ARASAAC domina la práctica hispanohablante. Fue diseñado para niños:
+            escenas narrativas, figuras infantiles, paletas pastel.
+            AIGA/DOT fue diseñado para adultos en espacios públicos:
+            formas esenciales, figura neutra. Para un adolescente o joven adulto
+            autista, materiales infantilizados cuestan dignidad y disposición a
+            usar el sistema. Batorowicz et al. (2025); Zisk y Dalton (2019).
+          </aside>
+        </section>
+
+        <!-- DRILLDOWN: pictos.cl (servicios públicos) -->
+        <section id="s2-pictos-cl" class="w" data-background-image="images/pictos-metro.jpg"
+          data-background-size="cover" data-background-position="center">
+          <aside class="notes">
+            Drilldown. pictos.cl: 51 servicios públicos chilenos evaluados.
+            Accesibilidad cognitiva = apoyos visuales-procedimentales.
+            No basta simplificar el texto: hay que ofrecer una guía
+            visual paso a paso. Exss, Spencer González et al. (2025).
+          </aside>
+        </section>
+
+        <!-- DRILLDOWN: Arquitectura del servicio -->
+        <section id="s2-arquitectura" data-background-color="#FFF">
+          <div style="text-align: center;">
+            <img src="svg/service architecture.svg" alt="Arquitectura del servicio PICTOS" class="fit"
+              style="max-height: 75vh;">
+          </div>
+          <aside class="notes">
+            Drilldown. Arquitectura del servicio pictos.cl.
+            Gramática visual compartida (dispositivos abstractos estables)
+            con léxicos locales adaptados al contexto cultural de cada servicio.
+          </aside>
+        </section>
+
+        <!-- DRILLDOWN: Correspondencia semántica -->
+        <section id="s2-correspondencia" data-background-image="svg/semantic-correspondence.svg"
+          data-background-size="contain" data-background-color="#FFF">
+          <aside class="notes">
+            Drilldown. La accesibilidad cognitiva se juega en la distancia
+            entre lo que se quiere decir (espacio de la palabra) y lo que se
+            muestra (espacio de la imagen). Mientras más estrecha esa
+            correspondencia, más accesible es el pictograma.
+          </aside>
+        </section>
+
+        <!-- DRILLDOWN: Sistema pictográfico en capas -->
+        <section id="s2-capas" data-background-iframe="https://pictogramas.pictos.cl" data-background-interactive
+          data-background-opacity="1">
+          <aside class="notes">
+            Drilldown. pictogramas.pictos.cl: sistema pictográfico en capas.
+            Gramática compartida (negación, pluralidad, temporalidad como
+            convenciones estables), léxicos locales (contenido concreto adaptado
+            al contexto cultural). Cada capa es un nivel de significado que
+            puede editarse de forma independiente.
+          </aside>
+        </section>
+      </section>
+
+
+      <!-- =========================================================
+           SECCIÓN 3 — TRES PREGUNTAS QUE ABREN PICTOS
+           ========================================================= -->
+
+      <!-- 3.1 Tres preguntas situadas -->
+      <section id="s3-tres-preguntas" class="gradient-bg">
+        <p class="smallcaps">tres preguntas que estructuran el trabajo</p>
+        <ol class="three-questions">
+          <li>
+            <span class="dim-label">idea comunicativa</span>
+            <p>¿captura el sistema lo que <em>yo</em> quiero decir, antes de generar la imagen?</p>
+          </li>
+          <li>
+            <span class="dim-label">pragmáticas</span>
+            <p>¿el pictograma encaja en el contexto real donde se va a usar?</p>
+          </li>
+          <li>
+            <span class="dim-label">respuesta esperada</span>
+            <p>¿el pictograma cumpliría su propósito comunicativo con la persona a la que sirve?</p>
+          </li>
+        </ol>
+        <aside class="notes">
+          Estas tres dimensiones son exactamente las que estructuran la fase 2
+          del protocolo. No son retóricas: anticipan el tipo de conversación
+          que tendrías con quien decida participar.
+        </aside>
+      </section>
+
+      <!-- 3.2 La pregunta doctoral [drilldown vertical: definición de pictograma] -->
+      <section>
+        <section id="s3-pregunta-doctoral">
+          <p class="smallcaps">en una sola pregunta</p>
+          <p class="huge question">
+            ¿Cómo diseñar una herramienta generativa que haga
+            <span>auditable y controlable</span>
+            la construcción de pictogramas CAA?
+          </p>
+          <aside class="notes">
+            Pregunta doctoral, AUT University. Paradigma constructivista,
+            investigación-a-través-del-diseño. El problema no es generar
+            imágenes desde texto; el problema es que los modelos comerciales
+            operan como cajas negras.
+          </aside>
+        </section>
+
+        <!-- DRILLDOWN: definición de pictograma -->
+        <section id="s3-definicion" data-background-color="white">
+          <div style="max-width: 75%; margin: 0 auto;">
+            <h2
+              style="font-family: 'EB Garamond'; font-size: 2.8rem; font-weight: 700; color: #141414; margin-bottom: 0;">
+              pictograma</h2>
+            <p style="font-family: 'EB Garamond'; font-size: 1.2rem; color: #666; margin: .3em 0 1em;">
+              /piktoˈɡɾama/ (sustantivo)
+            </p>
+            <p style="font-family: 'EB Garamond'; font-size: 1.2rem; color: #444; margin-bottom: 1.2em;">
+              Del latín <em>pictus</em> 'pintado' + griego <em>gramma</em> 'algo escrito'; por analogía con ideograma.
+            </p>
+            <p
+              style="font-family: 'EB Garamond'; font-size: 1.7rem; line-height: 145%; color: #141414; font-weight: 400;">
+              Un pictograma es un signo visual predominantemente icónico cuya estructura composicional integra múltiples
+              unidades gráficas reconocibles para expresar, en una sola configuración, estados de cosas, acciones o
+              relaciones; en este sentido opera como una frase visual más que como una palabra visual aislada.
+            </p>
+          </div>
+          <aside class="notes">
+            Drilldown. Definición propia. No es solo un ícono: es una frase visual.
+            Los pictogramas son herramientas para actuar en el mundo: expresar
+            deseos, hacer pedidos, rechazar ofertas, participar en las rutinas
+            y decisiones que estructuran la vida cotidiana.
+          </aside>
+        </section>
+      </section>
+
+
+      <!-- =========================================================
+           SECCIÓN 4 — PICTOS.NET COMO RESPUESTA
+           ========================================================= -->
+
+      <!-- 4.1 Escena cotidiana -->
+      <section id="s4-escena" data-background-image="images/sala-de-clases-blurred.png">
+        <div class="say">
+          <div class="speech">porque hoy día llueve, no iremos al parque<br>pero nos quedaremos trabajando con
+            plastilina</div>
+        </div>
+        <aside class="notes">
+          Caso concreto donde las tres preguntas se cruzan.
+          Encuentro "parque", "lluvia", "plastilina" por separado en la biblioteca,
+          pero no puedo componer la negación temporal ni la relación causal.
+          (Pendiente: cambiar a un escenario de transición a la vida independiente.)
+        </aside>
+      </section>
+
+      <!-- 4.2 Paso único opaco T → i -->
+      <section id="s4-paso-unico" data-background-color="white">
+        <div style="text-align: center;">
+          <img src="svg/razonamiento-escalonado_paso-previo-con-LLM-difusion.svg" alt="T → i en un solo paso"
+            class="fit" style="max-height: 55vh;">
+        </div>
+        <div class="figure-legend-img" style="max-width: 70%; margin: .5em auto 0;">
+          <strong>T → i</strong> : un solo paso opaco. Solo aceptar o rechazar.<br>
+          No se puede verificar la intención, ajustar la composición ni documentar decisiones.
+        </div>
+        <aside class="notes">
+          Modelos de difusión: caja negra entre texto y resultado visual.
+          Solo aceptar o rechazar. Ninguna de las tres preguntas se puede responder.
+          Zastudil et al. (2025): la asistencia de IA aumentó la confianza
+          de los profesionales pero no la calidad de los tableros CAA.
+        </aside>
+      </section>
+
+      <!-- 4.3 Pipeline escalonado (overview) -->
+      <section id="s4-pipeline-escalonado" data-background-color="white">
+        <div style="text-align: center;">
+          <img src="svg/razonamiento-escalonado_propuesta-pictos-net.svg" alt="Pipeline escalonado" class="fit"
+            style="max-height: 55vh;">
+        </div>
+        <div class="figure-legend-img" style="max-width: 70%; margin: .5em auto 0;">
+          Cada paso intermedio es <strong>auditable, editable y regenerable</strong>.
+        </div>
+        <aside class="notes">
+          La propuesta central: pipeline escalonado con intervención en cualquier punto.
+          Tres fases automáticas: Comprender, Componer, Producir. Dos fases opcionales
+          de post-procesamiento: Vectorizar, Estructurar. Cada fase es un punto de
+          control donde el profesional puede inspeccionar, editar o regenerar.
+        </aside>
+      </section>
+
+      <!-- 4.4 Pipeline tabla -->
+      <section id="s4-pipeline-tabla">
+        <h2>Pipeline — la comprensión precede a la visualización</h2>
+        <aside class="notes">
+          Cinco fases: Comprender (NLU + NSM), Componer (roles a símbolos),
+          Producir (bitmap 1024px), Vectorizar (vtracer WASM local),
+          Estructurar (SVG semántico con mf-svg-schema).
+        </aside>
+        <table class="pipeline">
+          <thead>
+            <tr>
+              <td class="start"><span class="speech">"porque hoy llueve, no iremos al parque"</span></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th><span>1</span><br>Comprender</th>
+              <th><span>2</span><br>Componer</th>
+              <th><span>3</span><br>Producir</th>
+              <th><span>4</span><br>Vectorizar</th>
+              <th>Estructurar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>NLU + NSM: acto de habla, marcos, roles, guías visuales.</td>
+              <td>Roles → símbolos. Jerarquía visual. <strong>Mezcla conceptual</strong>.</td>
+              <td><strong>Bitmap</strong> 1024×1024 px: contexto semántico + estilo.</td>
+              <td>Bitmap → SVG via <strong>vtracer</strong> (WASM, local).</td>
+              <td class="end">SVG semántico + metadatos accesibilidad (<strong>mf-svg-schema</strong>).</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 4.5 NLU front-end -->
+      <section id="s4-nlu">
+        <h3>Análisis semántico — fase COMPRENDER</h3>
+        <div class="col-2">
+          <div class="say">
+            <div class="speech" style="font-size: .85rem;">porque hoy día llueve, no iremos al parque y nos
+              quedaremos trabajando con plastilina en la sala</div>
+          </div>
+          <pre class="nlu" style="font-size: .55rem; text-align: left; line-height: 1.45;"><code data-trim data-noescape class="language-json">{
+  "utterance": "porque hoy día llueve, no iremos al parque...",
+  "speech_act": "Explicación de Decisión y Planificación",
+  "intent": "Informar sobre un cambio de planes...",
+  "frames": [
+    { "frame": "Cause_to_effect_relation",
+      "lexical_unit": "porque",
+      "Cause":  { "ref": "EVENTO_LLUVIA_HOY",
+                  "surface": "hoy día llueve" },
+      "Effect": { "ref": "EFECTO_CAMBIO_DE_PLAN",
+                  "surface": "no iremos al parque..." }
+    },
+    { "frame": "Self_motion",
+      "lexical_unit": "iremos",
+      "Destination": { "ref": "LUGAR_PARQUE" },
+      "Negation":    { "ref": "MODALIDAD_NEGACION" }
+    },
+    { "frame": "Performing_actions",
+      "lexical_unit": "trabajando",
+      "Agent":      { "ref": "ACTOR_NOSOTROS" },
+      "Action":     { "surface": "trabajando con plastilina" },
+      "Location":   { "ref": "LUGAR_SALA" }
+    }
+  ],
+  "nsm_explications": {
+    "LLUVIA_HOY": "Pienso: hoy algo como agua cae de arriba.",
+    "CAMBIO_DE_PLANES": "Pienso: antes nosotros queríamos
+      movernos al parque. Ahora no haremos esto.",
+    "ACTIVIDAD_ALTERNATIVA": "Pienso: nosotros estaremos
+      en la sala. Haremos algo con plastilina."
+  },
+  "visual_guidelines": {
+    "focus_actor":  "Un grupo de personas (nosotros)",
+    "action_core":  "Cancelar salida, sustituir por
+                     actividad hogareña",
+    "object_core":  "Plastilina, parque",
+    "context":      "Día lluvioso, dentro de la sala",
+    "temporal":     "Hoy"
+  }
+}</code></pre>
+        </div>
+        <aside class="notes">
+          Aquí se responde la primera pregunta: <em>idea comunicativa</em>.
+          El profesional puede verificar si la intención fue correctamente
+          interpretada antes de que se genere cualquier imagen.
+        </aside>
+      </section>
+
+      <!-- 4.6 Pictograma generado -->
+      <section id="s4-pictograma" data-background-color="white">
+        <div style="text-align: center;">
+          <img src="images/ejemplo-pictograma-lluvia.png" alt="Pictograma generado" class="fit"
+            style="max-height: 75vh; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);">
+        </div>
+        <aside class="notes">
+          Fase PRODUCIR: el bitmap es producto intermedio. PICTOS.net continúa:
+          vectorizar y estructurar. Aquí empiezan a responderse las preguntas
+          de pragmáticas y respuesta esperada: el profesional puede editar,
+          anotar, ajustar la edad y el contexto cultural.
+        </aside>
+      </section>
+
+      <!-- 4.7 SVG como fuente de verdad -->
+      <section id="s4-svg-verdad" data-background-color="white">
+        <div style="text-align: center;">
+          <img src="svg/razonamiento-escalonado_svg-como-fuente-de-verdad.svg" alt="SVG comprime todo el flujo"
+            class="fit" style="max-height: 55vh;">
+        </div>
+        <div class="figure-legend-img" style="max-width: 70%; margin: .5em auto 0;">
+          El SVG final comprime en su código todo el proceso: la <strong>estética de la accesibilidad</strong>.
+        </div>
+        <aside class="notes">
+          El SVG es la fuente única de verdad: comprime en su código
+          la intención comunicativa, la composición visual y los metadatos
+          de accesibilidad. Esquema mf-svg-schema en GitHub.
+        </aside>
+      </section>
+
+      <!-- 4.8 Estética: texto como imagen
+           [drilldowns verticales: brecha CAA, punto de control formal] -->
+      <section>
+        <section class="svg-code-sync" data-svg-url="svg/pictogram.svg" data-transition="fade" id="s4-estetica">
+          <h2>Texto como imagen: la estética de la accesibilidad</h2>
+          <div style="display:grid;grid-template-columns:50% 50%;height:500px;gap:1rem;">
+            <div style="overflow:auto;font-size:.55em;line-height:1.2;">
+              <pre style="font-size:111%;white-space:pre;margin-left:3em;">
+        <code data-role="svg-source" class="language-xml" data-line-numbers></code>
+        </pre>
+            </div>
+            <div data-role="svg-stage"
+              style="display:flex;align-items:center;justify-content:center;background:#c4c2c2;border-radius:1ex;">
+            </div>
+          </div>
+          <aside class="notes">
+            SVG: legible por humanos, segmentable semánticamente y jerárquico.
+            Su transparencia permite al profesional auditar, adaptar y enseñar
+            al sistema qué aspecto tiene la claridad. El código es el pictograma:
+            cada elemento tiene identidad y significado.
+          </aside>
+        </section>
+
+        <!-- DRILLDOWN: Brecha persistente CAA -->
+        <section id="s4-brecha" data-transition="fade">
+          <h2>Una brecha persistente en CAA</h2>
+          <table class="gap">
+            <thead>
+              <tr>
+                <th><img src="svg/noun-003.svg"><br>Habla y lenguaje</th>
+                <th><img src="svg/noun-004.svg"><br>Sistemas predictivos</th>
+                <th><img src="svg/noun-002.svg"><br>Interfaces corporalizadas</th>
+                <th><img src="svg/noun-001.svg"><br>Representación pictográfica</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <ul>
+                    <li class="check">reconocimiento de voz</li>
+                    <li class="check">texto a habla</li>
+                    <li class="check">reparación por IA</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li class="check">texto predictivo</li>
+                    <li class="check">sugerencia contextual</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li class="check">eye tracking</li>
+                    <li class="check">control gestual</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li class="check">sets estáticos</li>
+                    <li class="fail">sin sistemas generativos</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <aside class="notes">
+            Drilldown. Todo ha avanzado menos la representación pictográfica:
+            sigue siendo estática. Reconocimiento de voz, texto predictivo,
+            eye tracking: todos incorporaron IA. Los pictogramas, no.
+          </aside>
+        </section>
+
+        <!-- DRILLDOWN: Punto de control formal -->
+        <section id="s4-control-points">
+          <p class="smallcaps">concepto del paper doctoral</p>
+          <p class="huge">
+            Un punto de control es un lugar donde el sistema pausa,
+            expone su estado intermedio y permite al profesional
+            inspeccionar, modificar o aprobar
+          </p>
+          <p class="small" style="margin-top: 2em; opacity: .8;">
+            Cuatro propiedades: inspeccionabilidad, editabilidad, reanudabilidad y trazabilidad.
+          </p>
+          <aside class="notes">
+            Drilldown. Concepto central del paper doctoral (ASSETS 2026).
+            No es explicabilidad post-hoc (XAI) ni manipulación directa
+            creativa: es control in-process sobre generación profesional.
+            La definición formal vive en el paper.
+          </aside>
+        </section>
+      </section>
+
+
+      <!-- =========================================================
+           SECCIÓN 5 — LO QUE YA APRENDIMOS JUNTOS
+           ========================================================= -->
+
+      <!-- 5.1 Participantes Fase 1 -->
+      <section id="s5-fase1-participantes" data-background-color="#FFF">
+        <h2 style="margin-bottom: .8em;">Lo que ya aprendimos juntos</h2>
+        <table class="participants">
+          <thead>
+            <tr>
+              <th>Perfil</th>
+              <th>Área</th>
+              <th>Años</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Diseñador de ARASAAC</td><td>Diseño</td><td>19</td></tr>
+            <tr><td>Investigadora CAA, fonoaudióloga</td><td>Educación diferencial</td><td>22</td></tr>
+            <tr><td>Investigadora en validación pictográfica, fonoaudióloga</td><td>Psicología / FONO</td><td>4</td></tr>
+            <tr><td>Investigadora CAA, fonoaudióloga, madre de niño con NCC</td><td>Psicología / FONO</td><td>12</td></tr>
+            <tr><td>Investigador en diseño de información</td><td>Diseño</td><td>31</td></tr>
+            <tr><td>Educadoras diferenciales (sesión pareada)</td><td>Educación / FONO</td><td>13, 8</td></tr>
+            <tr><td>Directora de escuela</td><td>Educación diferencial</td><td>27</td></tr>
+            <tr><td>Fonoaudióloga universitaria</td><td>FONO</td><td>21</td></tr>
+            <tr><td>Directora centro de autismo</td><td>Educación diferencial</td><td>25</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top: 1.2em; font-size: .8rem; color: #666;">
+          Fase formativa, mayo 2025 — febrero 2026 ·
+          ocho profesionales, siete entrevistas, 182 años acumulados de práctica.
+          Santiago, Valparaíso, Quilpué.
+        </p>
+        <aside class="notes">
+          Esta sección legitima el proyecto. La participación no es simbólica:
+          ya hay un cuerpo de profesionales que aportó. La tabla está anonimizada
+          según las condiciones de AUTEC 25/44.
+        </aside>
+      </section>
+
+      <!-- 5.2 Cómo cambió PICTOS gracias a la fase 1 -->
+      <section id="s5-roadmap" data-background-color="#FFF">
+        <p class="smallcaps">tres decisiones de diseño que vienen de la fase formativa</p>
+        <ol class="roadmap-list">
+          <li>
+            <span class="lead">Tiempo de adaptación → puntos de control</span>
+            <span class="desc">El reporte recurrente de <em>paso más tiempo adaptando que trabajando</em>
+              hizo evidente que la herramienta debía permitir intervenir <em>en el camino</em>,
+              no solo aceptar o rechazar el resultado.</span>
+          </li>
+          <li>
+            <span class="lead">Vocabulario que falta → pipeline generativo con NSM</span>
+            <span class="desc">La crisis de la generalización empujó la decisión de no construir otra
+              biblioteca, sino un sistema que componga el vocabulario faltante a partir de la
+              intención del profesional.</span>
+          </li>
+          <li>
+            <span class="lead">Dignidad y edad → preferencias explícitas de biblioteca</span>
+            <span class="desc">Las paradojas transaccionales (riesgo de infantilización) llevaron a
+              exponer el estilo visual, el contexto geográfico y la lengua de análisis como capa
+              explícita y editable, no como decisiones del modelo escondidas en su entrenamiento.</span>
+          </li>
+        </ol>
+        <aside class="notes">
+          Tres decisiones concretas. Cada una se puede rastrear a temas
+          específicos del análisis temático reflexivo. Cuando inicie la fase 2,
+          este mismo formato sostendrá el roadmap público en el repositorio.
+        </aside>
+      </section>
+
+
+      <!-- =========================================================
+           SECCIÓN 6 — LA INVITACIÓN
+           ========================================================= -->
+
+      <!-- 6.1 Qué se les invita a hacer -->
+      <section id="s6-que-hacer" data-background-color="#FFF">
+        <h2 style="margin-bottom: .8em;">Qué se les invita a hacer</h2>
+        <ul class="invitation-list">
+          <li>
+            <span class="lead">Usar PICTOS.net en su práctica real</span>
+            <span class="desc">Construir bibliotecas para usuarios concretos en sus contextos clínicos
+              o educativos.</span>
+          </li>
+          <li>
+            <span class="lead">Participar de una sesión de diseño participativo</span>
+            <span class="desc">Aproximadamente una hora. Individual o en grupo de hasta cuatro.
+              Presencial en Santiago, Valparaíso, Quilpué u online.</span>
+          </li>
+          <li>
+            <span class="lead">Compartir voluntariamente bibliotecas con sus registros de intervención</span>
+            <span class="desc">Cada biblioteca conserva el historial de las decisiones del profesional.
+              Compartirla es opcional y reversible.</span>
+          </li>
+        </ul>
+        <aside class="notes">
+          Invitación operacional, no aspiracional. Tres formatos del protocolo,
+          articulados desde la Sección 4 del documento del estudio.
+        </aside>
+      </section>
+
+      <!-- 6.2 Qué obtienen a cambio -->
+      <section id="s6-que-obtienen" data-background-color="#FFF">
+        <h2 style="margin-bottom: .8em;">Qué obtienen a cambio</h2>
+        <ul class="invitation-list">
+          <li>
+            <span class="lead">Acceso continuo a PICTOS.net</span>
+            <span class="desc">Sin costo, mientras el proyecto esté activo, con la herramienta
+              evolucionando entre sesiones.</span>
+          </li>
+          <li>
+            <span class="lead">Reconocimiento autoral por biblioteca compartida</span>
+            <span class="desc">Cada biblioteca lleva un campo <code>credits</code> con los nombres y
+              la institución que la autoraron; viaja con la biblioteca al exportarla.</span>
+          </li>
+          <li>
+            <span class="lead">Un lugar en un proyecto que construye precedente regional</span>
+            <span class="desc">Código abierto, gobernanza comunitaria, datos curados por las propias
+              profesionales que los generan.</span>
+          </li>
+        </ul>
+        <aside class="notes">
+          La participación tiene retorno material y reputacional.
+          El reconocimiento autoral es por biblioteca, no por evento individual.
+        </aside>
+      </section>
+
+      <!-- 6.3 PICTOS.net — cierre operacional
+           Este slide era el demo de la Sección 4 (s4-demo). Se relocalizó aquí
+           para que funcione como CTA final de la invitación: el lugar al que
+           se debe ir, en concreto. [drilldown vertical: soberanía/federado] -->
+      <section>
+        <section id="s6-pictos-cta" data-background-color="#FFF">
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <img src="svg/pictos-iso.svg" alt="PICTOS isotipo"
+              style="width: 220px; height: auto; margin-bottom: .5em;">
+            <p style="font-family: 'Lexend', sans-serif; font-size: 5rem; font-weight: 800; color: #40069e; margin: 0; letter-spacing: -0.03em;">
+              PICTOS.net
+            </p>
+            <a href="https://pictos.net" target="_blank"
+              style="font-family: 'Lexend', sans-serif; font-size: 1.2rem; color: #40069e; opacity: .8; margin-top: .5em; text-decoration: underline;">
+              regístrense en pictos.net →
+            </a>
+            <p style="font-family: 'Lexend', sans-serif; font-size: .95rem; color: #444; margin-top: 1.6em; text-align: center; max-width: 28em;">
+              Para coordinar una sesión escríbanme a
+              <strong>hspencer@ead.cl</strong>
+            </p>
+          </div>
+          <aside class="notes">
+            Cierre de la invitación. Combina el call to action a registrarse
+            en pictos.net (lo que era el demo de la sección 4) con el correo
+            de contacto. La cobertura ética AUTEC 25/44 + enmienda en curso
+            queda mencionada aquí en speaker notes y consultable en el
+            repositorio público del proyecto.
+          </aside>
+        </section>
+
+        <!-- DRILLDOWN: Trabajo futuro / soberanía -->
+        <section id="s6-soberania">
+          <p class="smallcaps">trabajo futuro</p>
+          <p class="huge">
+            Entrenar un modelo de razonamiento generativo
+            que sea auditable y personalizable
+          </p>
+          <p class="huge" style="margin-top: .8em;">
+            Una nueva forma de aprendizaje federado,
+            soberana y justa
+          </p>
+          <aside class="notes">
+            Drilldown. Los datos generados por el uso profesional constituyen
+            un dataset curado para fine-tuning. Aprendizaje federado: las
+            instituciones entrenan localmente y comparten mejoras sin ceder
+            sus datos. Soberanía tecnológica: que las comunidades que generan
+            los datos controlen el modelo resultante. Código abierto bajo
+            MediaFranca.
+          </aside>
+        </section>
+      </section>
+
+
+      <!-- =========================================================
+           CIERRE
+           ========================================================= -->
+
+      <section id="s7-gracias" data-transition="slide">
+        <h2>Gracias</h2>
+        <div class="p5-host" data-sketch="pipeline" style="width:100%; height:65vh;"></div>
+      </section>
+
+      <section id="s7-enlaces" data-background-color="#000" data-transition="fade">
+        <div class="col-2">
+          <div style="text-align: center;">
+            <img src="svg/mediafranca-dark.svg" alt="MediaFranca" width="30%">
+          </div>
+          <div class="invert" style="font-size: 11px; line-height: 18px; letter-spacing: .1ex;">
+            <p>
+              <strong>PICTOS</strong>: pipeline transparente texto → SVG para pictogramas accesibles.
+              Código abierto, evaluación integrada, gobernanza comunitaria.
+            </p>
+            <ol>
+              <li><a href="https://github.com/hspencer/pictos-net"><strong>pictos-net</strong></a> — motor generativo
+              </li>
+              <li><a href="https://github.com/mediafranca/ICAP"><strong>ICAP</strong></a> — evaluación de pictogramas
+                · <a href="https://mediafranca.github.io/ICAP/">demo</a></li>
+              <li><a href="https://github.com/mediafranca/mf-svg-schema"><strong>mf-svg-schema</strong></a> — esquema
+                SVG accesible</li>
+              <li><a href="https://github.com/mediafranca/nlu-schema"><strong>nlu-schema</strong></a> — esquema NLU
+              </li>
+              <li><a href="https://github.com/mediafranca/manifesto"><strong>manifiesto</strong></a> — principios de
+                diseño · <a href="https://herbertspencer.net/2025/manifiesto">es</a></li>
+            </ol>
+            <p><strong>Herbert Spencer González</strong> · hspencer@ead.cl</p>
+            <p><a href="https://herbertspencer.net/pictos-chile">herbertspencer.net/pictos-chile</a></p>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- .slides -->
+  </div><!-- .reveal -->
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>

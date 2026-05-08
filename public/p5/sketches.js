@@ -16,9 +16,36 @@ function mountP5In(sectionEl) {
   sectionEl.querySelectorAll('.p5-host').forEach(host => {
     if (P5_REGISTRY.has(host)) return;
     const type = (host.dataset.sketch || '').toLowerCase();
-    if (type !== 'pipeline') return;
-    const inst = new p5(pipelineFactory(host), host);
+    let factory = null;
+    if (type === 'pipeline') factory = pipelineFactory(host);
+    else if (type === 'chronology') factory = chronologySketchFactory(host);
+    if (!factory) return;
+    const inst = new p5(factory, host);
     P5_REGISTRY.set(host, inst);
+
+    // Re-sync del canvas tras la transición de reveal.
+    // Cuando p5 corre setup() recién al montar la diapositiva, el host
+    // todavía puede tener dimensiones obsoletas porque reveal escala el
+    // slide en el mismo frame. Doble requestAnimationFrame asegura que
+    // el layout esté asentado antes de pedir un resize. Si el sketch
+    // expone windowResized, lo invocamos para que recalcule el canvas.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (typeof inst.windowResized === 'function') inst.windowResized();
+      });
+    });
+
+    // Observador de cambios de tamaño del contenedor: cubre cambios
+    // posteriores (zoom de reveal en overview, resize de la ventana,
+    // rotación). Se desconecta junto con el unmount.
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(() => {
+        if (typeof inst.windowResized === 'function') inst.windowResized();
+      });
+      ro.observe(host);
+      // Guarda el observer en el host para limpiarlo en unmountP5In.
+      host.__p5ResizeObserver = ro;
+    }
   });
 }
 
@@ -29,6 +56,11 @@ function mountP5In(sectionEl) {
 function unmountP5In(sectionEl) {
   if (!sectionEl) return;
   sectionEl.querySelectorAll('.p5-host').forEach(host => {
+    // Desconecta el ResizeObserver creado en mountP5In, si existe.
+    if (host.__p5ResizeObserver) {
+      try { host.__p5ResizeObserver.disconnect(); } catch (_) {}
+      delete host.__p5ResizeObserver;
+    }
     const inst = P5_REGISTRY.get(host);
     if (inst?.remove) inst.remove();
     P5_REGISTRY.delete(host);
@@ -92,6 +124,129 @@ async function loadSVGAsHTMLImage(primaryUrl, fallbackUrl, label) {
       return { img: null, used: fallbackUrl, objUrl: null };
     }
   }
+}
+
+// ======================================================
+// FÁBRICA DE SKETCH: CHRONOLOGY
+// Visualización de la trayectoria tecnológica 1990-2030.
+// Importada desde /prs (presentación previa). Se utiliza en la
+// diapositiva "quién les habla" (s1-quien-habla) para situar la
+// trayectoria del expositor sobre la línea de tiempo de la web,
+// la IA y las interfaces.
+// ======================================================
+function chronologySketchFactory(parentEl) {
+  return function(p) {
+    const startTime = 1990;
+    const endTime = 2030;
+    let currentYear = startTime;
+    let thisYear;
+    const yearEvents = {
+      1990: "WWW", 1991: "Linux Kernel", 1992: "PCs, SMS",
+      1993: "Web browser", 1994: "E-Commerce", 1995: "Windows 95, Netscape",
+      1996: "GUI", 1997: "Google PageRank", 1998: "MP3, ICQ",
+      1999: "P2P: Napster", 2000: "Dot-com bubble", 2001: "Wikipedia",
+      2002: "Bluetooth", 2003: "Social media, VoIP", 2004: "Facebook, APIs",
+      2005: "YouTube, Maps", 2006: "Twitter, AWS", 2007: "Multitouch: iPhone",
+      2008: "Android, iOS, Symbian", 2009: "PayPal, Bitcoin", 2010: "iPad",
+      2011: "Siri", 2012: "Deep Learning", 2013: "Wearable Computing",
+      2014: "Oculus Rift: VR", 2015: "TensorFlow · CRISPR", 2016: "Pokémon GO: AR",
+      2017: "AI: Transformers", 2018: "GDPR", 2019: "5G, 4G LTE",
+      2020: "COVID-19, GPT-3", 2021: "NFTs, Metaverse", 2022: "Quantum Computing",
+      2023: "Custom GPTs", 2024: "AI Agents", 2025: "AGI?",
+      2026: "XAI?"
+    };
+    const fadeValues = {};
+    let hostW, hostH;
+
+    p.setup = function() {
+      hostW = parentEl.clientWidth;
+      hostH = parentEl.clientHeight;
+      const c = p.createCanvas(hostW, hostH);
+      c.parent(parentEl);
+      thisYear = new Date().getFullYear();
+      for (const y in yearEvents) fadeValues[y] = 255;
+      p.textFont('Lexend');
+    };
+
+    p.windowResized = function() {
+      hostW = parentEl.clientWidth;
+      hostH = parentEl.clientHeight;
+      p.resizeCanvas(hostW, hostH);
+    };
+
+    p.draw = function() {
+      p.clear();
+      drawExponentialGraph();
+      displayYear();
+      drawLegends();
+    };
+
+    /**
+     * Dibuja la curva exponencial que avanza con el año actual.
+     * Se utiliza para sugerir la aceleración tecnológica en el
+     * tiempo que cubre la trayectoria del expositor.
+     */
+    function drawExponentialGraph() {
+      p.noFill();
+      p.stroke(166, 49, 23);
+      p.beginShape();
+      for (let x = 0; x <= currentYear - startTime; x += 0.02) {
+        const y = Math.pow(2, x / 5);
+        p.vertex(
+          p.map(x + startTime, startTime, endTime, 0, p.width),
+          p.map(y, 1, Math.pow(2, (endTime - startTime) / 5), p.height, 0)
+        );
+      }
+      p.endShape();
+    }
+
+    /**
+     * Muestra el año en curso en grande y avanza el contador
+     * para que el ciclo de animación cubra de 1990 a 2030 a lo
+     * largo del ancho del canvas.
+     */
+    function displayYear() {
+      p.noStroke();
+      p.fill(190);
+      p.textSize(52);
+      if (currentYear < thisYear) {
+        p.text(p.nf(Math.floor(currentYear), 4), 10, 52);
+      } else {
+        p.text(thisYear + "…", 10, 52);
+      }
+      if (currentYear < endTime) {
+        currentYear += (endTime - startTime) / Math.max(1, p.width);
+      }
+    }
+
+    /**
+     * Imprime los hitos tecnológicos por año a medida que el
+     * contador llega a ellos. Cada hito decae lentamente para
+     * que la diapositiva sostenga lecturabilidad sin saturarse.
+     */
+    function drawLegends() {
+      p.noStroke();
+      p.textSize(16);
+      for (const y in yearEvents) {
+        const yi = parseInt(y, 10);
+        if (currentYear >= yi) {
+          p.fill(fadeValues[y]);
+          const xPos = p.map(yi, startTime, endTime, 0, p.width);
+          const yPos = p.height * 0.9 - (yi % 10) * 20;
+          p.text(yearEvents[y], xPos, yPos);
+          p.push();
+          p.translate(xPos, yPos);
+          p.rotate(-p.HALF_PI);
+          p.textFont("Lexend");
+          p.textSize(10);
+          p.fill(166, 49, 23, 130);
+          p.text(yi, 15, 9);
+          p.pop();
+          if (fadeValues[y] > 10) fadeValues[y]--;
+        }
+      }
+    }
+  };
 }
 
 // ======================================================

@@ -3,7 +3,13 @@
  * Derivados directamente de /cc (Confirmation of Candidature).
  * Paleta: púrpura (#460556), naranja (#ff6600), terracota (#c73319), verde salvia (#c4cfb5).
  * Tipografía: Lexend (sans) + EB Garamond (serif).
+ *
+ * Módulos Sass modernos: list.append y color.adjust reemplazan a las
+ * funciones globales append() y darken() que Dart Sass 3.0.0 retira.
  */
+
+@use 'sass:list';
+@use 'sass:color';
 
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Lexend:wght@100..900&display=swap');
 
@@ -30,7 +36,7 @@ $color: #141414c2;
     @for $i from 1 through $steps {
         $x: $i * $dx;
         $y: $i * $dy;
-        $shadows: append($shadows, $x $y $blur $color, comma);
+        $shadows: list.append($shadows, $x $y $blur $color, comma);
     }
     text-shadow: $shadows;
 }
@@ -351,6 +357,13 @@ a, a:visited { color: $terciary-color; }
             }
         }
 
+        .card{
+            border: 1px solid transparentize($terciary-color, .7);
+            border-radius: .5ex;
+            padding: 1ex .7em;
+            margin-bottom: 1em;
+        }
+
         /* --- Tablas --- */
         table {
             margin: 0 auto;
@@ -606,7 +619,7 @@ a, a:visited { color: $terciary-color; }
             font-family: 'EB Garamond';
             font-size: 14px;
             color: #888;
-            border-top: 1px solid darken($background-color, 10%);
+            border-top: 1px solid color.adjust($background-color, $lightness: -10%);
             padding-top: 0.4em;
         }
 
@@ -620,6 +633,242 @@ a, a:visited { color: $terciary-color; }
             max-width: 10em;
             margin: 0 auto;
         }
+
+        /* ====================================================
+           NUEVOS ESTILOS PARA LA VERSIÓN A POTENCIALES
+           PARTICIPANTES (audiencia de fonoaudiólogas)
+           ==================================================== */
+
+        /* El overlay oscuro de la Sección 2 se aplica directamente
+           al slide-background vía data-background con linear-gradient,
+           para que reveal lo extienda a toda la pantalla. Por eso aquí
+           no hay regla de overlay en CSS. */
+
+        /* --- Lista grande con un punto por línea (Sección 2) ---
+           La audiencia tiene que poder leer cada tema desde la última
+           fila de la sala, así que la tipografía es deliberadamente
+           grande y la descripción se presenta en un peso menor.
+        */
+        ol.big-list,
+        ul.big-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.2em 1em 0;
+            counter-reset: bigitem;
+
+            li {
+                display: grid;
+                grid-template-columns: 2.2em 1fr;
+                gap: 0 .8em;
+                align-items: baseline;
+                margin-bottom: 1.1em;
+                counter-increment: bigitem;
+
+                &::before {
+                    content: counter(bigitem);
+                    grid-column: 1;
+                    font-family: 'Lexend', sans-serif;
+                    font-weight: 200;
+                    font-size: 2.4rem;
+                    line-height: 1;
+                    color: $terciary-color;
+                    text-align: right;
+                    padding-right: .25em;
+                }
+
+                .lead {
+                    grid-column: 2;
+                    display: block;
+                    font-family: 'Lexend', sans-serif;
+                    font-weight: 500;
+                    font-size: 1.9rem;
+                    line-height: 1.2;
+                    margin-bottom: .15em;
+                }
+                .desc {
+                    grid-column: 2;
+                    display: block;
+                    font-family: 'Lexend', sans-serif;
+                    font-weight: 350;
+                    font-size: 1.1rem;
+                    line-height: 1.4;
+                    opacity: .9;
+                    em { font-style: italic; opacity: .85; }
+                }
+            }
+
+            /* Variante invertida (sobre fondo oscuro de Sección 2) */
+            &.invert {
+                li {
+                    .lead, .desc { color: white; }
+                    .desc { color: rgba(255,255,255,.88); }
+                    &::before { color: $terciary-color; }
+                }
+            }
+        }
+
+        /* --- Fondo de la Sección 3 (tres preguntas) ---
+           Color sólido de la paleta. Nunca degradados parciales que
+           fragmenten visualmente la diapositiva.
+        */
+        .gradient-bg {
+            background: $background-color;
+        }
+        .reveal .slides section.gradient-bg {
+            background: $background-color;
+        }
+
+        /* --- Tres preguntas grandes (Sección 3) ---
+           Tipografía MUY grande. Cada pregunta lleva una etiqueta de
+           dimensión arriba (idea comunicativa, pragmáticas, respuesta
+           esperada) en versalitas pequeñas.
+        */
+        ol.three-questions {
+            list-style: none;
+            padding: 0;
+            margin: 1em .5em 0;
+            counter-reset: q;
+
+            li {
+                display: grid;
+                grid-template-columns: 2em 1fr;
+                gap: .2em .8em;
+                margin-bottom: 1.4em;
+                counter-increment: q;
+
+                &::before {
+                    content: counter(q);
+                    grid-row: 1 / 3;
+                    grid-column: 1;
+                    font-family: 'Lexend', sans-serif;
+                    font-weight: 200;
+                    font-size: 3.2rem;
+                    line-height: .9;
+                    color: $terciary-color;
+                    text-align: right;
+                    padding-right: .15em;
+                    align-self: start;
+                }
+
+                .dim-label {
+                    grid-column: 2;
+                    grid-row: 1;
+                    display: block;
+                    font-family: 'Lexend', sans-serif;
+                    text-transform: uppercase;
+                    letter-spacing: .15ex;
+                    font-size: .8rem;
+                    font-weight: 500;
+                    color: $terciary-color;
+                    margin-bottom: .15em;
+                }
+
+                p {
+                    grid-column: 2;
+                    grid-row: 2;
+                    margin: 0;
+                    font-family: 'Lexend', sans-serif;
+                    font-weight: 350;
+                    font-size: 2.2rem;
+                    line-height: 1.18;
+                    color: $color-text;
+
+                    em {
+                        font-style: italic;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+
+        /* --- Tabla de participantes Fase 1 (Sección 5) ---
+           Diseño tranquilo, sin colores fuertes. La función de la
+           tabla es legitimar, no llamar la atención.
+        */
+        table.participants {
+            width: 90%;
+            margin: 0 auto;
+            font-size: .95rem;
+            border-collapse: collapse;
+
+            thead th {
+                font-family: 'Lexend', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: .1ex;
+                font-size: .7rem;
+                color: $terciary-color;
+                font-weight: 500;
+                padding: .4em .8em;
+                border-bottom: 1px solid $terciary-color;
+                text-align: left;
+            }
+            tbody td {
+                padding: .55em .8em;
+                border-bottom: 1px solid #e8e4dc;
+                vertical-align: top;
+            }
+            tbody td:last-child {
+                font-family: 'Lexend', sans-serif;
+                font-variant-numeric: tabular-nums;
+                color: #555;
+            }
+        }
+
+        /* --- Lista de roadmap (Sección 5.2) y de invitación (Sección 6) ---
+           Misma estructura que big-list pero sin numerar (uso una marca
+           tipográfica antes del lead) y a tamaño un poco menor.
+        */
+        ol.roadmap-list,
+        ul.invitation-list {
+            list-style: none;
+            padding: 0;
+            margin: .8em 1em 0;
+
+            li {
+                display: block;
+                margin-bottom: 1em;
+                padding-left: 1.2em;
+                position: relative;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: .8em;
+                    width: .55em;
+                    height: .55em;
+                    background: $terciary-color;
+                    border-radius: 50%;
+                }
+
+                .lead {
+                    display: block;
+                    font-family: 'Lexend', sans-serif;
+                    font-weight: 500;
+                    font-size: 1.4rem;
+                    line-height: 1.25;
+                    color: $color-text;
+                    margin-bottom: .15em;
+                }
+                .desc {
+                    display: block;
+                    font-family: 'Lexend', sans-serif;
+                    font-weight: 350;
+                    font-size: 1.0rem;
+                    line-height: 1.4;
+                    color: #444;
+                    em { font-style: italic; color: $terciary-color; }
+                    code {
+                        font-family: 'Menlo', monospace;
+                        font-size: .9em;
+                        background: rgba($terciary-color, .08);
+                        padding: 0 .3em;
+                        border-radius: .25ex;
+                    }
+                }
+            }
+        }
+
     }
 }
 
